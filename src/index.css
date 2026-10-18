@@ -97,3 +97,27 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 ::-webkit-scrollbar-thumb:hover {
   background: #BF8431;
 }
+
+/* ==========================================================================
+   Netlify Badge & Injected Drawer Suppressor
+   Eliminates the "Powered by Netlify" floating widget from all viewports
+   ========================================================================== */
+iframe[src*="netlify"],
+iframe#netlify-drawer,
+div#netlify-badge,
+div[data-netlify-deploy-id],
+.netlify-badge,
+[class*="netlify-badge"],
+[id*="netlify-drawer"],
+[data-netlify] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  z-index: -9999 !important;
+}

@@ -28,24 +28,25 @@ export const Navbar = ({ onOpenBooking }) => {
         ? 'bg-hotel-950/95 backdrop-blur-xl border-b border-slate-800/80 shadow-2xl py-2' 
         : 'bg-gradient-to-b from-hotel-950/95 via-hotel-950/85 to-transparent py-3 sm:py-4'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full">
         
         {/* Üst Satır: Logo, Sosyal Medya Butonları ve Rezervasyon CTA */}
-        <div className="flex items-center justify-between gap-4 w-full">
+        <div className="flex items-center justify-between gap-2 sm:gap-4 w-full">
           
           {/* Sol: Logo & Marka (Kusursuz Tek Satır & Altın Yıldızlar) */}
-          <a href="#hero" className="flex items-center gap-3 shrink-0 group select-none py-0.5">
-            <LogoEmblem size="md" />
-            <div className="flex flex-col shrink-0 justify-center">
-              <div className="flex items-center gap-2">
-                <span className="font-serif font-bold text-lg sm:text-xl text-white tracking-wide whitespace-nowrap">
+          <a href="#hero" className="flex items-center gap-2 sm:gap-3 shrink-0 group select-none py-0.5 min-w-0">
+            <LogoEmblem size="sm" className="sm:hidden" />
+            <LogoEmblem size="md" className="hidden sm:inline-flex" />
+            <div className="flex flex-col justify-center min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <span className="font-serif font-bold text-base sm:text-xl text-white tracking-wide whitespace-nowrap">
                   {hotel.name}
                 </span>
-                <span className="text-gold-400 font-sans text-[10px] tracking-wider font-semibold uppercase px-1.5 py-0.5 rounded bg-gold-500/10 border border-gold-500/25 whitespace-nowrap shrink-0">
+                <span className="text-gold-400 font-sans text-[9px] sm:text-[10px] tracking-wider font-semibold uppercase px-1 sm:px-1.5 py-0.5 rounded bg-gold-500/10 border border-gold-500/25 whitespace-nowrap shrink-0">
                   {hotel.city}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 mt-0.5 whitespace-nowrap">
+              <div className="hidden sm:flex items-center gap-1.5 mt-0.5 whitespace-nowrap">
                 <div className="flex items-center gap-0.5">
                   {[...Array(hotel.stars)].map((_, i) => (
                     <Star key={i} className="w-2.5 h-2.5 fill-gold-400 text-gold-400 shrink-0" />
@@ -58,11 +59,11 @@ export const Navbar = ({ onOpenBooking }) => {
             </div>
           </a>
 
-          {/* Sağ: Sosyal Medya İkonları ve Rezervasyon Butonu */}
-          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+          {/* Sağ: Butonlar & Hamburger / Izgara Menü (Her Zaman Görünür) */}
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             
-            {/* Sosyal Medya Butonları (Facebook, Twitter/X, Instagram, LinkedIn, YouTube) */}
-            <div className="hidden sm:flex items-center">
+            {/* Sosyal Medya Butonları (Desktop) */}
+            <div className="hidden md:flex items-center">
               <SocialMediaBar size="xs" />
             </div>
 
@@ -73,23 +74,21 @@ export const Navbar = ({ onOpenBooking }) => {
               icon={Calendar}
               iconPosition="left"
               onClick={() => onOpenBooking()}
-              className="whitespace-nowrap shrink-0 text-xs sm:text-sm px-3.5 sm:px-4 py-2 font-semibold shadow-md"
+              className="whitespace-nowrap shrink-0 text-xs sm:text-sm px-2.5 sm:px-4 py-1.5 sm:py-2 font-semibold shadow-md"
             >
               <span className="hidden sm:inline">{siteContent.hero.ctaPrimary}</span>
               <span className="sm:hidden">Rezervasyon</span>
             </Button>
 
-            {/* Mobil & Tablet Menü Butonu (< 1200px) */}
-            <div className="flex xl:hidden items-center shrink-0">
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 sm:p-2.5 rounded-lg text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 focus:outline-none transition-colors cursor-pointer"
-                aria-label="Menüyü Aç/Kapat"
-              >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
-            </div>
+            {/* Mobil & Tablet Hamburger / Izgara Menü Butonu (< 1200px) */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 sm:p-2.5 rounded-xl text-slate-200 hover:text-white bg-slate-800/90 hover:bg-slate-800 border border-slate-700/80 focus:outline-none transition-colors cursor-pointer shrink-0 flex items-center justify-center shadow-sm xl:hidden"
+              aria-label="Menüyü Aç/Kapat"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5 text-gold-400" /> : <Menu className="w-5 h-5 text-white" />}
+            </button>
 
           </div>
 
@@ -117,59 +116,37 @@ export const Navbar = ({ onOpenBooking }) => {
       {mobileMenuOpen && createPortal(
         <div className="xl:hidden fixed inset-0 z-[60] h-[100dvh] w-full bg-hotel-950/98 backdrop-blur-3xl flex flex-col justify-between overflow-hidden animate-in fade-in duration-200">
           
-          {/* Üst Kısım: Marka Başlığı, Rezervasyon Butonu ve Kapatma Butonu */}
+          {/* Üst Kısım: Marka Başlığı ve Kapatma Butonu */}
           <div className="flex items-center justify-between gap-3 px-4 sm:px-6 py-3.5 border-b border-slate-800/80 bg-hotel-950/90 shrink-0">
             <a
               href="#hero"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 shrink-0"
+              className="flex items-center gap-2.5 sm:gap-3 min-w-0"
             >
-              <LogoEmblem size="md" />
-              <div className="flex flex-col justify-center">
-                <div className="flex items-center gap-2">
-                  <span className="font-serif font-bold text-base sm:text-lg text-white tracking-wide whitespace-nowrap">
+              <LogoEmblem size="sm" className="shrink-0" />
+              <div className="flex flex-col justify-center min-w-0">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="font-serif font-bold text-base sm:text-lg text-white tracking-wide truncate">
                     {hotel.name}
                   </span>
                   <span className="text-gold-400 font-sans text-[9px] tracking-wider font-semibold uppercase px-1.5 py-0.5 rounded bg-gold-500/10 border border-gold-500/25 shrink-0">
                     {hotel.city}
                   </span>
                 </div>
-                <div className="flex items-center gap-1 mt-0.5">
-                  <div className="flex items-center gap-0.5">
-                    {[...Array(hotel.stars)].map((_, i) => (
-                      <Star key={i} className="w-2.5 h-2.5 fill-gold-400 text-gold-400 shrink-0" />
-                    ))}
-                  </div>
-                  <span className="text-[10px] text-slate-300 font-medium whitespace-nowrap">
-                    4 Yıldızlı Lüks Otel & SPA
-                  </span>
-                </div>
+                <span className="text-[10px] text-slate-400 font-medium truncate">
+                  4 Yıldızlı Lüks Otel & SPA
+                </span>
               </div>
             </a>
 
-            <div className="flex items-center gap-2 shrink-0">
-              <Button
-                variant="gold"
-                size="sm"
-                icon={Calendar}
-                iconPosition="left"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenBooking();
-                }}
-                className="whitespace-nowrap text-xs px-3 py-1.5 font-semibold shadow-md"
-              >
-                Rezervasyon
-              </Button>
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 rounded-xl text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 focus:outline-none transition-colors cursor-pointer"
-                aria-label="Menüyü Kapat"
-              >
-                <X className="w-5 h-5 text-white" />
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-9 h-9 rounded-xl text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 focus:outline-none transition-colors cursor-pointer flex items-center justify-center shrink-0"
+              aria-label="Menüyü Kapat"
+            >
+              <X className="w-5 h-5 text-white" />
+            </button>
           </div>
 
           {/* Orta Kısım: Menü Bağlantıları (Üstte ferah, sıralı, lüks dokunuşlu) */}

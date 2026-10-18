@@ -86,22 +86,25 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md"
+      className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-md"
       onClick={(e) => {
         if (e.target === e.currentTarget) handleResetAndClose();
       }}
     >
-      <div className="relative w-full max-w-2xl bg-hotel-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+      <div className="relative w-full max-w-2xl bg-hotel-900 border-t sm:border border-slate-700/80 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden h-[90dvh] sm:h-auto sm:max-h-[90vh] flex flex-col">
         
+        {/* Mobile Pull Indicator */}
+        <div className="w-10 h-1 rounded-full bg-slate-700/80 mx-auto mt-2 sm:hidden shrink-0" />
+
         {/* Header */}
-        <div className="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-hotel-900/80 shrink-0">
-          <div className="flex items-center gap-3">
-            <LogoEmblem size="md" />
-            <div>
-              <h3 className="font-serif text-lg sm:text-xl font-bold text-white">
+        <div className="p-3.5 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-hotel-900/90 shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <LogoEmblem size="sm" className="shrink-0" />
+            <div className="min-w-0">
+              <h3 className="font-serif text-base sm:text-xl font-bold text-white truncate">
                 {step === 1 ? bookingModal.step1Title : bookingModal.step2Title}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-[11px] sm:text-xs text-slate-400 truncate">
                 {hotel.name} - {hotel.starLabel}
               </p>
             </div>
@@ -109,14 +112,15 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
           <button
             type="button"
             onClick={handleResetAndClose}
-            className="p-2 rounded-lg text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-800 transition-colors"
+            className="w-8 h-8 rounded-lg text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-800 transition-colors shrink-0 ml-2 flex items-center justify-center"
+            aria-label="Kapat"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
         </div>
 
         {/* Modal Scrollable Content */}
-        <div data-modal-scrollable className="p-5 sm:p-6 overflow-y-auto space-y-6 flex-1 min-h-0 overscroll-contain">
+        <div data-modal-scrollable className="p-4 sm:p-6 overflow-y-auto space-y-5 sm:space-y-6 flex-1 min-h-0 overscroll-contain pb-28 sm:pb-6">
           
           {step === 1 ? (
             <form onSubmit={handleConfirm} className="space-y-6">
@@ -230,11 +234,12 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-2 flex items-center justify-end gap-3">
+              <div className="pt-3 pb-1 flex items-center justify-end gap-2.5 sm:gap-3">
                 <Button
                   variant="dark"
                   size="md"
                   onClick={handleResetAndClose}
+                  className="flex-1 sm:flex-none text-xs sm:text-sm py-2.5 sm:py-2"
                 >
                   {bookingModal.cancelButton}
                 </Button>
@@ -244,6 +249,7 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
                   size="md"
                   icon={CheckCircle2}
                   iconPosition="right"
+                  className="flex-1 sm:flex-none text-xs sm:text-sm py-2.5 sm:py-2 shadow-gold-glow/20"
                 >
                   {bookingModal.confirmButton}
                 </Button>

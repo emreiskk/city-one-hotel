@@ -25,6 +25,21 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Netlify Badge & Drawer Suppressor -->
+    <style>
+      iframe[src*="netlify"],
+      iframe#netlify-drawer,
+      #netlify-badge,
+      .netlify-badge,
+      div[data-netlify-deploy-id],
+      [id*="netlify-drawer"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    </style>
   </head>
   <body class="bg-hotel-950 text-slate-100 font-sans antialiased selection:bg-gold-500 selection:text-white">
     <div id="root"></div>
