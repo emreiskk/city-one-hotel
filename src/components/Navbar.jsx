@@ -23,30 +23,29 @@ export const Navbar = ({ onOpenBooking }) => {
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 overflow-x-hidden ${
       isScrolled 
         ? 'bg-hotel-950/95 backdrop-blur-xl border-b border-slate-800/80 shadow-2xl py-2' 
-        : 'bg-gradient-to-b from-hotel-950/95 via-hotel-950/85 to-transparent py-3 sm:py-4'
+        : 'bg-gradient-to-b from-hotel-950/95 via-hotel-950/85 to-transparent py-2.5 sm:py-4'
     }`}>
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full">
+      <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 w-full box-border">
         
         {/* Üst Satır: Logo, Sosyal Medya Butonları ve Rezervasyon CTA */}
-        <div className="flex items-center justify-between gap-2 sm:gap-4 w-full">
+        <div className="flex items-center justify-between gap-1.5 sm:gap-4 w-full">
           
-          {/* Sol: Logo & Marka (Kusursuz Tek Satır & Altın Yıldızlar) */}
-          <a href="#hero" className="flex items-center gap-2 sm:gap-3 shrink-0 group select-none py-0.5 min-w-0">
-            <LogoEmblem size="sm" className="sm:hidden" />
-            <LogoEmblem size="md" className="hidden sm:inline-flex" />
+          {/* Sol: Logo & Marka */}
+          <a href="#hero" className="flex items-center gap-2 sm:gap-3 group select-none py-0.5 min-w-0 flex-1">
+            <LogoEmblem size="sm" className="shrink-0" />
             <div className="flex flex-col justify-center min-w-0">
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="font-serif font-bold text-base sm:text-xl text-white tracking-wide whitespace-nowrap">
+              <div className="flex items-center gap-1.5 min-w-0">
+                <span className="font-serif font-bold text-sm xs:text-base sm:text-xl text-white tracking-wide truncate">
                   {hotel.name}
                 </span>
-                <span className="text-gold-400 font-sans text-[9px] sm:text-[10px] tracking-wider font-semibold uppercase px-1 sm:px-1.5 py-0.5 rounded bg-gold-500/10 border border-gold-500/25 whitespace-nowrap shrink-0">
+                <span className="hidden xs:inline-block text-gold-400 font-sans text-[8px] sm:text-[10px] tracking-wider font-semibold uppercase px-1 sm:px-1.5 py-0.5 rounded bg-gold-500/10 border border-gold-500/25 shrink-0">
                   {hotel.city}
                 </span>
               </div>
-              <div className="hidden sm:flex items-center gap-1.5 mt-0.5 whitespace-nowrap">
+              <div className="hidden md:flex items-center gap-1.5 mt-0.5 whitespace-nowrap">
                 <div className="flex items-center gap-0.5">
                   {[...Array(hotel.stars)].map((_, i) => (
                     <Star key={i} className="w-2.5 h-2.5 fill-gold-400 text-gold-400 shrink-0" />
@@ -59,11 +58,11 @@ export const Navbar = ({ onOpenBooking }) => {
             </div>
           </a>
 
-          {/* Sağ: Butonlar & Hamburger / Izgara Menü (Her Zaman Görünür) */}
-          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          {/* Sağ: Butonlar & Hamburger / Izgara Menü (Her Zaman %100 Görünür) */}
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0 ml-1">
             
             {/* Sosyal Medya Butonları (Desktop) */}
-            <div className="hidden md:flex items-center">
+            <div className="hidden lg:flex items-center">
               <SocialMediaBar size="xs" />
             </div>
 
@@ -74,20 +73,24 @@ export const Navbar = ({ onOpenBooking }) => {
               icon={Calendar}
               iconPosition="left"
               onClick={() => onOpenBooking()}
-              className="whitespace-nowrap shrink-0 text-xs sm:text-sm px-2.5 sm:px-4 py-1.5 sm:py-2 font-semibold shadow-md"
+              className="whitespace-nowrap shrink-0 text-[11px] sm:text-sm px-2 sm:px-4 py-1.5 sm:py-2 font-semibold shadow-md"
             >
               <span className="hidden sm:inline">{siteContent.hero.ctaPrimary}</span>
               <span className="sm:hidden">Rezervasyon</span>
             </Button>
 
-            {/* Mobil & Tablet Hamburger / Izgara Menü Butonu (< 1200px) */}
+            {/* Mobil & Tablet Hamburger / Izgara Menü Butonu */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 sm:p-2.5 rounded-xl text-slate-200 hover:text-white bg-slate-800/90 hover:bg-slate-800 border border-slate-700/80 focus:outline-none transition-colors cursor-pointer shrink-0 flex items-center justify-center shadow-sm xl:hidden"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-slate-200 hover:text-white bg-slate-800/95 hover:bg-slate-700 border border-slate-700/80 focus:outline-none transition-all cursor-pointer shrink-0 flex items-center justify-center shadow-md active:scale-95 xl:hidden"
               aria-label="Menüyü Aç/Kapat"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5 text-gold-400" /> : <Menu className="w-5 h-5 text-white" />}
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5 text-gold-400" />
+              ) : (
+                <Menu className="w-5 h-5 text-white" />
+              )}
             </button>
 
           </div>
