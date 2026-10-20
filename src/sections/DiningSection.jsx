@@ -67,25 +67,6 @@ export default function DiningSection({ onOpenBooking }) {
             {diningSection.subtitle}
           </Subtitle>
 
-          {/* Operational Hours Quick Strip */}
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300">
-              <Clock className="w-3.5 h-3.5 text-gold-400" />
-              <span>{diningSection.hours.breakfast}</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300">
-              <Clock className="w-3.5 h-3.5 text-gold-400" />
-              <span>{diningSection.hours.dinner}</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-emerald-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span>{diningSection.hours.roomService}</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300">
-              <Users className="w-3.5 h-3.5 text-gold-400" />
-              <span>{diningSection.capacityBadge}</span>
-            </span>
-          </div>
         </div>
 
         {/* Gallery Mode Filter Tabs - Mobilde yan yana yatay kaydırma, webde ortalı yan yana */}
@@ -94,7 +75,7 @@ export default function DiningSection({ onOpenBooking }) {
             onClick={() => handleModeChange('breakfast')}
             className={`px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 ${
               activeTab === 'breakfast'
-                ? 'bg-gold-gradient text-hotel-950 font-bold shadow-md shadow-gold-500/20 border border-gold-400'
+                ? 'bg-gold-gradient text-white font-semibold shadow-lg shadow-gold-500/25 border border-gold-400/40'
                 : 'bg-hotel-900/90 text-slate-300 border border-slate-800/90 hover:border-gold-500/40 hover:text-white'
             }`}
           >
@@ -106,7 +87,7 @@ export default function DiningSection({ onOpenBooking }) {
             onClick={() => handleModeChange('sini')}
             className={`px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 ${
               activeTab === 'sini'
-                ? 'bg-gold-gradient text-hotel-950 font-bold shadow-md shadow-gold-500/20 border border-gold-400'
+                ? 'bg-gold-gradient text-white font-semibold shadow-lg shadow-gold-500/25 border border-gold-400/40'
                 : 'bg-hotel-900/90 text-slate-300 border border-slate-800/90 hover:border-gold-500/40 hover:text-white'
             }`}
           >
@@ -118,7 +99,7 @@ export default function DiningSection({ onOpenBooking }) {
             onClick={() => handleModeChange('alacarte')}
             className={`px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 ${
               activeTab === 'alacarte'
-                ? 'bg-gold-gradient text-hotel-950 font-bold shadow-md shadow-gold-500/20 border border-gold-400'
+                ? 'bg-gold-gradient text-white font-semibold shadow-lg shadow-gold-500/25 border border-gold-400/40'
                 : 'bg-hotel-900/90 text-slate-300 border border-slate-800/90 hover:border-gold-500/40 hover:text-white'
             }`}
           >

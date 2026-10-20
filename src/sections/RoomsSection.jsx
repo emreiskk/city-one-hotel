@@ -85,7 +85,7 @@ export default function RoomsSection({ onSelectRoomForBooking }) {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
                   isActive
-                    ? 'bg-gold-gradient text-hotel-950 font-bold shadow-md shadow-gold-500/20 border border-gold-400'
+                    ? 'bg-gold-gradient text-white font-semibold shadow-lg shadow-gold-500/25 border border-gold-400/40'
                     : 'bg-hotel-900/90 text-slate-300 border border-slate-800/90 hover:border-gold-500/40 hover:text-white'
                 }`}
               >
@@ -143,7 +143,7 @@ export default function RoomsSection({ onSelectRoomForBooking }) {
                     <span className="text-[10px] text-slate-400 block font-medium">
                       {bookingModal.perNightRate}
                     </span>
-                    <span className="font-serif text-lg font-bold text-gold-400">
+                    <span className="font-serif text-lg font-bold text-gold-400 whitespace-nowrap">
                       {room.formattedPrice}
                     </span>
                   </div>
@@ -217,7 +217,7 @@ export default function RoomsSection({ onSelectRoomForBooking }) {
                       icon={Eye}
                       onClick={() => handleOpenRoomDetail(room)}
                       aria-label={roomsSection.ui?.inspectDetails || 'Detayları İncele'}
-                      className="shrink-0 aspect-square !p-0 flex items-center justify-center cursor-pointer"
+                      className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 min-w-[36px] sm:min-w-[40px] !p-0 flex items-center justify-center cursor-pointer"
                     />
                   </div>
                 </div>
@@ -302,25 +302,25 @@ export default function RoomsSection({ onSelectRoomForBooking }) {
               </div>
               <div className="text-left sm:text-right shrink-0">
                 <span className="text-xs text-slate-400 block">{bookingModal.perNightRate}</span>
-                <span className="font-serif text-xl sm:text-2xl font-bold text-gold-400">
+                <span className="font-serif text-xl sm:text-2xl font-bold text-gold-400 whitespace-nowrap">
                   {selectedRoomDetail.formattedPrice}
                 </span>
               </div>
             </div>
 
-            {/* Room Meta Badges (Size in m², Capacity, Bed) */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 mb-5 p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs">
+            {/* Room Meta Specs (Clean, transparent layout) */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 py-3 border-y border-slate-800/80 mb-5 text-xs">
               <div className="flex items-center gap-2 text-slate-300">
                 <Maximize2 className="w-4 h-4 text-gold-400 shrink-0" />
-                <span><strong className="text-white">{roomsSection.ui?.modalArea || 'Alan:'}</strong> {selectedRoomDetail.size}</span>
+                <span><strong className="text-white font-medium">{roomsSection.ui?.modalArea || 'Alan:'}</strong> {selectedRoomDetail.size}</span>
               </div>
               <div className="flex items-center gap-2 text-slate-300">
                 <Users className="w-4 h-4 text-gold-400 shrink-0" />
-                <span><strong className="text-white">{roomsSection.ui?.modalCapacity || 'Kapasite:'}</strong> {selectedRoomDetail.capacity}</span>
+                <span><strong className="text-white font-medium">{roomsSection.ui?.modalCapacity || 'Kapasite:'}</strong> {selectedRoomDetail.capacity}</span>
               </div>
               <div className="flex items-center gap-2 text-slate-300 col-span-1">
                 <Bed className="w-4 h-4 text-gold-400 shrink-0" />
-                <span className="truncate"><strong className="text-white">{roomsSection.ui?.modalBed || 'Yatak:'}</strong> {selectedRoomDetail.bedType}</span>
+                <span className="truncate"><strong className="text-white font-medium">{roomsSection.ui?.modalBed || 'Yatak:'}</strong> {selectedRoomDetail.bedType}</span>
               </div>
             </div>
 

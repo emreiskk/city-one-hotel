@@ -154,7 +154,7 @@ export const PhotoLightboxModal = ({
           <button
             onClick={handlePrev}
             aria-label={currentLang === 'ru' ? 'Предыдущее фото' : currentLang === 'en' ? 'Previous Photo' : currentLang === 'de' ? 'Vorheriges Foto' : 'Önceki Fotoğraf'}
-            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-hotel-900/80 border border-slate-700/80 text-white hover:bg-gold-500 hover:text-hotel-950 transition-all shadow-xl z-20 cursor-pointer active:scale-90"
+            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-hotel-900/90 border border-slate-700/80 text-white sm:hover:bg-gold-500 sm:hover:text-hotel-950 active:bg-gold-500 active:text-hotel-950 transition-all shadow-xl z-20 cursor-pointer active:scale-90 select-none"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
@@ -173,7 +173,7 @@ export const PhotoLightboxModal = ({
           <button
             onClick={handleNext}
             aria-label={currentLang === 'ru' ? 'Следующее фото' : currentLang === 'en' ? 'Next Photo' : currentLang === 'de' ? 'Nächstes Foto' : 'Sonraki Fotoğraf'}
-            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-hotel-900/80 border border-slate-700/80 text-white hover:bg-gold-500 hover:text-hotel-950 transition-all shadow-xl z-20 cursor-pointer active:scale-90"
+            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-hotel-900/90 border border-slate-700/80 text-white sm:hover:bg-gold-500 sm:hover:text-hotel-950 active:bg-gold-500 active:text-hotel-950 transition-all shadow-xl z-20 cursor-pointer active:scale-90 select-none"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>

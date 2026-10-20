@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
 import { Button } from '../design-system/Button';
-import { Calendar, ArrowRight, CheckCircle2, Crown, Play } from 'lucide-react';
-import { VideoModal } from '../components/VideoModal';
+import { Calendar, ArrowRight, CheckCircle2, Crown } from 'lucide-react';
 
 export const HeroSection = ({ onOpenBooking }) => {
   const { content } = useLanguage();
   const { hero, hotel } = content;
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   return (
     <section id="hero" className="relative min-h-[90vh] lg:min-h-screen flex items-center pt-24 sm:pt-36 lg:pt-40 pb-12 sm:pb-16 overflow-hidden">
@@ -67,8 +65,8 @@ export const HeroSection = ({ onOpenBooking }) => {
             ))}
           </div>
 
-          {/* Action CTAs: Streamlined mobile layout to eliminate vertical bloating */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4">
+          {/* Action CTAs: Focused luxury direct booking & room discovery */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
             <Button
               variant="gold"
               size="md"
@@ -80,31 +78,17 @@ export const HeroSection = ({ onOpenBooking }) => {
               {hero.ctaPrimary}
             </Button>
 
-            <div className="grid grid-cols-2 sm:flex sm:items-center gap-2.5 sm:gap-4">
-              <Button
-                as="a"
-                href="#rooms"
-                variant="outline"
-                size="md"
-                icon={ArrowRight}
-                iconPosition="right"
-                className="py-2.5 sm:!py-3.5 sm:!px-7 text-xs sm:text-base justify-center"
-              >
-                <span className="truncate">{hero.ctaSecondary}</span>
-              </Button>
-
-              <Button
-                type="button"
-                variant="dark"
-                size="md"
-                icon={Play}
-                iconPosition="left"
-                onClick={() => setIsVideoModalOpen(true)}
-                className="py-2.5 sm:!py-3.5 sm:!px-7 text-xs sm:text-base cursor-pointer border-gold-500/30 text-gold-300 hover:text-white justify-center"
-              >
-                <span className="truncate">{hero.ctaVirtualTour}</span>
-              </Button>
-            </div>
+            <Button
+              as="a"
+              href="#rooms"
+              variant="outline"
+              size="md"
+              icon={ArrowRight}
+              iconPosition="right"
+              className="py-3 sm:!py-3.5 sm:!px-7 text-sm sm:text-base justify-center"
+            >
+              {hero.ctaSecondary}
+            </Button>
           </div>
 
         </div>
@@ -124,15 +108,6 @@ export const HeroSection = ({ onOpenBooking }) => {
         </div>
 
       </div>
-
-      {/* Hero Video Modal */}
-      <VideoModal
-        isOpen={isVideoModalOpen}
-        videoUrl="/assets/hotel/videos/hotel-tour-04.mp4"
-        title="City One Hotel Kayseri - Canlı Tanıtım Turu"
-        subtitle="Erciyes'in Eteklerinde 4 Yıldızlı Lüks Deneyim"
-        onClose={() => setIsVideoModalOpen(false)}
-      />
 
     </section>
   );

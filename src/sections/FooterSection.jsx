@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { Star, Phone, Mail, MapPin, ChevronRight, Heart, MessageCircle } from 'lucide-react';
+import { Star, Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { SocialMediaBar } from '../components/SocialIcons';
 import { LogoEmblem } from '../components/Logo';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
@@ -9,17 +9,6 @@ import { NewsletterBanner } from '../components/NewsletterBanner';
 export const FooterSection = ({ onOpenBooking }) => {
   const { content } = useLanguage();
   const { hotel, navigation, footer, roomsSection } = content;
-
-  // Mobile accordion state for footer columns (default open on desktop, collapsible on mobile)
-  const [openSections, setOpenSections] = useState({
-    quick: true,
-    rooms: true,
-    privileges: true
-  });
-
-  const toggleSection = (key) => {
-    setOpenSections(prev => ({ ...prev, [key]: !prev[key] }));
-  };
 
   return (
     <footer className="bg-hotel-950 border-t border-slate-800/80 pt-12 sm:pt-16 pb-8 sm:pb-12 text-slate-400 text-xs sm:text-sm">
@@ -84,26 +73,18 @@ export const FooterSection = ({ onOpenBooking }) => {
             </div>
           </div>
 
-          {/* Quick Navigation Links (Açılır-Kapanır Akordiyon) */}
+          {/* Quick Navigation Links (Kalıcı ve Kararlı Liste) */}
           <div className="lg:col-span-3 border-t md:border-t-0 border-slate-800/60 pt-4 md:pt-0">
-            <button
-              type="button"
-              onClick={() => toggleSection('quick')}
-              className="flex items-center justify-between w-full md:cursor-default py-1 md:py-0 mb-3 group"
-            >
-              <h4 className="font-serif text-sm font-bold text-white uppercase tracking-wider group-hover:text-gold-300 md:group-hover:text-white transition-colors">
-                {footer.quickLinksTitle}
-              </h4>
-              <ChevronRight className={`w-4 h-4 text-gold-400 md:hidden transition-transform duration-200 ${openSections.quick ? 'rotate-90' : ''}`} />
-            </button>
-            <ul className={`space-y-2 text-xs transition-all duration-300 ${openSections.quick ? 'block' : 'hidden md:block'}`}>
+            <h4 className="font-serif text-sm font-bold text-white uppercase tracking-wider mb-3">
+              {footer.quickLinksTitle}
+            </h4>
+            <ul className="space-y-2 text-xs">
               {navigation.map((item) => (
                 <li key={item.id}>
                   <a
                     href={item.href}
-                    className="hover:text-gold-300 transition-colors flex items-center gap-1.5 py-0.5"
+                    className="hover:text-gold-300 transition-colors block py-0.5"
                   >
-                    <ChevronRight className="w-3 h-3 text-gold-500 shrink-0" />
                     <span>{item.label}</span>
                   </a>
                 </li>
@@ -111,19 +92,12 @@ export const FooterSection = ({ onOpenBooking }) => {
             </ul>
           </div>
 
-          {/* Accommodation Highlights (Açılır-Kapanır Akordiyon) */}
+          {/* Accommodation Highlights (Kalıcı ve Kararlı Liste) */}
           <div className="lg:col-span-3 border-t md:border-t-0 border-slate-800/60 pt-4 md:pt-0">
-            <button
-              type="button"
-              onClick={() => toggleSection('rooms')}
-              className="flex items-center justify-between w-full md:cursor-default py-1 md:py-0 mb-3 group"
-            >
-              <h4 className="font-serif text-sm font-bold text-white uppercase tracking-wider group-hover:text-gold-300 md:group-hover:text-white transition-colors">
-                {footer.roomsLinksTitle}
-              </h4>
-              <ChevronRight className={`w-4 h-4 text-gold-400 md:hidden transition-transform duration-200 ${openSections.rooms ? 'rotate-90' : ''}`} />
-            </button>
-            <ul className={`space-y-2 text-xs transition-all duration-300 ${openSections.rooms ? 'block' : 'hidden md:block'}`}>
+            <h4 className="font-serif text-sm font-bold text-white uppercase tracking-wider mb-3">
+              {footer.roomsLinksTitle}
+            </h4>
+            <ul className="space-y-2 text-xs">
               {roomsSection.rooms.map((room) => (
                 <li key={room.id}>
                   <button
@@ -132,7 +106,7 @@ export const FooterSection = ({ onOpenBooking }) => {
                     className="hover:text-gold-300 transition-colors flex items-center justify-between w-full text-left cursor-pointer py-0.5"
                   >
                     <span className="truncate">{room.name}</span>
-                    <span className="text-gold-400 font-medium shrink-0 ml-2">{room.formattedPrice}</span>
+                    <span className="text-gold-400 font-medium shrink-0 ml-2 whitespace-nowrap">{room.formattedPrice}</span>
                   </button>
                 </li>
               ))}
@@ -141,17 +115,10 @@ export const FooterSection = ({ onOpenBooking }) => {
 
           {/* Highlights & Guarantee */}
           <div className="lg:col-span-2 border-t md:border-t-0 border-slate-800/60 pt-4 md:pt-0">
-            <button
-              type="button"
-              onClick={() => toggleSection('privileges')}
-              className="flex items-center justify-between w-full md:cursor-default py-1 md:py-0 mb-3 group"
-            >
-              <h4 className="font-serif text-sm font-bold text-white uppercase tracking-wider group-hover:text-gold-300 md:group-hover:text-white transition-colors">
-                {footer.privilegesTitle || "Ayrıcalıklar"}
-              </h4>
-              <ChevronRight className={`w-4 h-4 text-gold-400 md:hidden transition-transform duration-200 ${openSections.privileges ? 'rotate-90' : ''}`} />
-            </button>
-            <div className={`p-3.5 rounded-xl bg-hotel-900/80 border border-slate-800 text-[11px] space-y-2 text-slate-300 transition-all duration-300 ${openSections.privileges ? 'block' : 'hidden md:block'}`}>
+            <h4 className="font-serif text-sm font-bold text-white uppercase tracking-wider mb-3">
+              {footer.privilegesTitle || "Ayrıcalıklar"}
+            </h4>
+            <div className="p-3.5 rounded-xl bg-hotel-900/80 border border-slate-800 text-[11px] space-y-2 text-slate-300">
               <p className="font-semibold text-gold-400">{footer.skiPerkTitle || "18 km Erciyes Servisi"}</p>
               <p>{footer.skiPerkDesc || "Otelden kayak pistlerine düzenli transfer & ısıtmalı kayak odası."}</p>
               <div className="pt-2 border-t border-slate-800">

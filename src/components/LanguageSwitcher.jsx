@@ -5,6 +5,7 @@ import { Globe, ChevronDown, Check } from 'lucide-react';
 export const LanguageSwitcher = ({ 
   variant = 'dropdown', 
   direction = 'down', // 'down' (navbar) | 'up' (footer dropup)
+  align = null, // 'left' | 'right'
   className = '' 
 }) => {
   const { currentLang, setLanguage, languageList } = useLanguage();
@@ -12,6 +13,7 @@ export const LanguageSwitcher = ({
   const dropdownRef = useRef(null);
 
   const activeLanguage = languageList.find(l => l.code === currentLang) || languageList[0];
+  const effectiveAlign = align || (direction === 'up' ? 'left' : 'right');
 
   // Close on outside click, touch, Escape key, or page scroll
   useEffect(() => {
@@ -99,7 +101,7 @@ export const LanguageSwitcher = ({
 
       {isOpen && (
         <div 
-          className={`absolute right-0 ${isUp ? 'bottom-full mb-2 slide-in-from-bottom-2' : 'top-full mt-2 slide-in-from-top-2'} w-44 rounded-2xl bg-hotel-950/98 backdrop-blur-2xl border border-gold-500/40 shadow-2xl z-[100] p-1.5 overflow-hidden animate-in fade-in duration-150`}
+          className={`absolute ${effectiveAlign === 'left' ? 'left-0' : 'right-0'} ${isUp ? 'bottom-full mb-2 slide-in-from-bottom-2' : 'top-full mt-2 slide-in-from-top-2'} w-44 rounded-2xl bg-hotel-950/98 backdrop-blur-2xl border border-gold-500/40 shadow-2xl z-[100] p-1.5 overflow-hidden animate-in fade-in duration-150`}
         >
           {/* Uyumlu, lüks altın tonlu ve yerelleştirilmiş başlık şeridi */}
           <div className="px-3 py-1.5 text-[10px] uppercase font-bold tracking-widest text-gold-300 border-b border-gold-500/20 flex items-center gap-1.5 mb-1.5 bg-gold-500/5 rounded-t-xl">

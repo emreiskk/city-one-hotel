@@ -40,15 +40,11 @@ export const NewsletterBanner = () => {
 
   return (
     <Card 
-      variant="goldBorder" 
+      variant="elevated" 
       hover={false} 
-      className="p-6 sm:p-8 lg:p-10 mb-10 sm:mb-14 relative overflow-hidden backdrop-blur-xl bg-gradient-to-br from-hotel-900/95 via-hotel-900/85 to-hotel-950/90 border border-gold-500/30 shadow-2xl"
+      className="p-5 sm:p-8 mb-8 sm:mb-12 bg-hotel-900 border-slate-800 shadow-xl"
     >
-      {/* Warm ambient lighting strictly aligned with City One Hotel luxury gold palette */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-gold-500/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-gold-500/5 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
         
         {/* Left Column: Design System Typography (SectionBadge + Heading + Subtitle) */}
         <div className="lg:col-span-7 space-y-2.5">

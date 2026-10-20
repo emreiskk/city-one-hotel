@@ -98,7 +98,7 @@ export default function ReviewsSection() {
                 </div>
 
                 {/* Title */}
-                <h3 className="font-serif text-lg font-bold text-white mb-2.5 flex items-center gap-2">
+                <h3 className="font-serif text-sm sm:text-base font-semibold text-white mb-2.5 flex items-center gap-2">
                   <MessageSquareQuote className="w-4 h-4 text-gold-400 shrink-0" />
                   <span>"{rev.title}"</span>
                 </h3>

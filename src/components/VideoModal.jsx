@@ -87,14 +87,9 @@ export const VideoModal = ({
             {isPortrait ? <Smartphone className="w-4 h-4" /> : <Film className="w-4 h-4" />}
           </div>
           <div className="min-w-0">
-            <div className="flex items-center gap-2 min-w-0">
-              <h3 className="font-serif text-sm sm:text-base font-semibold text-white truncate">
-                {title || 'City One Hotel'}
-              </h3>
-              <span className="text-[10px] sm:text-xs text-gold-400 font-sans uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded bg-gold-500/10 border border-gold-500/25 shrink-0">
-                {isPortrait ? verticalTourBadge : videoTourBadge}
-              </span>
-            </div>
+            <h3 className="font-serif text-sm sm:text-base font-semibold text-white truncate">
+              {title || 'City One Hotel'}
+            </h3>
             {subtitle && (
               <p className="text-[11px] text-slate-400 truncate">
                 {subtitle}

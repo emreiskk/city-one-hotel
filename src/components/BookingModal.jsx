@@ -133,7 +133,7 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
                     <BedDouble className="w-4 h-4 text-gold-400" />
                     <span>{selectedRoom.name}</span>
                   </div>
-                  <span className="text-xs font-bold text-gold-400 px-2 py-0.5 rounded bg-gold-500/10 border border-gold-500/20">
+                  <span className="text-xs font-bold text-gold-400 px-2 py-0.5 rounded bg-gold-500/10 border border-gold-500/20 whitespace-nowrap shrink-0">
                     {selectedRoom.formattedPrice} / {bookingModal.nightUnit}
                   </span>
                 </div>
@@ -160,33 +160,33 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
                   {bookingModal.pricingBreakdown}
                 </span>
 
-                <div className="flex justify-between text-slate-300">
-                  <span>{selectedRoom.name} ({nights} {bookingModal.nightUnit})</span>
-                  <span>{rawSubtotal.toLocaleString('tr-TR')} ₺</span>
+                <div className="flex justify-between items-center text-slate-300">
+                  <span className="truncate pr-2">{selectedRoom.name} ({nights} {bookingModal.nightUnit})</span>
+                  <span className="font-medium whitespace-nowrap shrink-0">{rawSubtotal.toLocaleString('tr-TR')} ₺</span>
                 </div>
 
-                <div className="flex justify-between text-emerald-400">
-                  <span className="flex items-center gap-1">
-                    <BadgePercent className="w-3.5 h-3.5" /> {bookingBar.labels?.directBookingBadge || 'Resmi Web Özel İndirimi (%10)'}
+                <div className="flex justify-between items-center text-emerald-400">
+                  <span className="flex items-center gap-1 truncate pr-2">
+                    <BadgePercent className="w-3.5 h-3.5 shrink-0" /> {bookingBar.labels?.directBookingBadge || 'Resmi Web Özel İndirimi (%10)'}
                   </span>
-                  <span>- {directDiscount.toLocaleString('tr-TR')} ₺</span>
+                  <span className="font-medium whitespace-nowrap shrink-0">- {directDiscount.toLocaleString('tr-TR')} ₺</span>
                 </div>
 
-                <div className="flex justify-between text-slate-400 text-xs">
+                <div className="flex justify-between items-center text-slate-400 text-xs">
                   <span>{bookingModal.taxes}</span>
-                  <span>0 ₺</span>
+                  <span className="font-medium whitespace-nowrap shrink-0">0 ₺</span>
                 </div>
 
-                <div className="pt-3 border-t border-slate-800 flex justify-between items-baseline">
-                  <div>
+                <div className="pt-3 border-t border-slate-800 flex justify-between items-baseline gap-2">
+                  <div className="min-w-0 pr-2">
                     <span className="font-serif text-base sm:text-lg font-bold text-white block">
                       {bookingModal.totalPrice}
                     </span>
-                    <span className="text-[11px] text-slate-400">
+                    <span className="text-[11px] text-slate-400 truncate block">
                       {roomsSection.pricingNote || 'Kahvaltı & 1500 m² SPA Dahildir'}
                     </span>
                   </div>
-                  <span className="font-serif text-2xl font-bold text-gold-400">
+                  <span className="font-serif text-2xl font-bold text-gold-400 whitespace-nowrap shrink-0">
                     {finalTotal.toLocaleString('tr-TR')} ₺
                   </span>
                 </div>
@@ -305,9 +305,9 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
                   <span>{bookingModal.guestsSummary || 'Misafir'}:</span>
                   <span className="font-semibold text-white">{formData.fullName} ({formData.phone})</span>
                 </div>
-                <div className="flex justify-between pt-2 border-t border-slate-800 font-bold text-gold-400 text-sm">
+                <div className="flex justify-between items-center pt-2 border-t border-slate-800 font-bold text-gold-400 text-sm">
                   <span>{bookingModal.totalPrice}:</span>
-                  <span>{finalTotal.toLocaleString('tr-TR')} ₺</span>
+                  <span className="whitespace-nowrap shrink-0">{finalTotal.toLocaleString('tr-TR')} ₺</span>
                 </div>
               </div>
 
