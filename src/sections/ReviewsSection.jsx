@@ -31,7 +31,7 @@ export default function ReviewsSection() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center">
             
             {/* Main Score Box */}
-            <div className="md:col-span-4 text-center md:text-left md:border-r border-slate-800 md:pr-8">
+            <div className="md:col-span-4 text-center md:text-left border-b md:border-b-0 md:border-r border-slate-800 pb-5 md:pb-0 md:pr-8">
               <div className="inline-flex items-baseline gap-2">
                 <span className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-gold-400">
                   {ratingSummary.average}
@@ -54,23 +54,23 @@ export default function ReviewsSection() {
               </p>
             </div>
 
-            {/* Sub-criteria Scores Grid */}
-            <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
-              <div className="bg-hotel-950/60 p-2.5 sm:p-3.5 rounded-xl border border-slate-800 text-center">
-                <span className="text-[11px] sm:text-xs text-slate-400 block mb-1">{labels?.cleanliness || 'Temizlik'}</span>
-                <span className="font-serif text-lg sm:text-xl font-bold text-white">{ratingSummary.cleanliness}</span>
+            {/* Sub-criteria Scores Grid with Guaranteed Equal Heights */}
+            <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 items-stretch">
+              <div className="bg-hotel-950/60 p-2.5 sm:p-3.5 rounded-xl border border-slate-800 text-center flex flex-col justify-between items-center h-full min-h-[76px]">
+                <span className="text-[11px] sm:text-xs text-slate-400 block mb-1 leading-snug">{labels?.cleanliness || 'Temizlik'}</span>
+                <span className="font-serif text-lg sm:text-xl font-bold text-white mt-auto">{ratingSummary.cleanliness}</span>
               </div>
-              <div className="bg-hotel-950/60 p-2.5 sm:p-3.5 rounded-xl border border-slate-800 text-center">
-                <span className="text-[11px] sm:text-xs text-slate-400 block mb-1">{labels?.location || 'Konum & Ulaşım'}</span>
-                <span className="font-serif text-lg sm:text-xl font-bold text-white">{ratingSummary.location}</span>
+              <div className="bg-hotel-950/60 p-2.5 sm:p-3.5 rounded-xl border border-slate-800 text-center flex flex-col justify-between items-center h-full min-h-[76px]">
+                <span className="text-[11px] sm:text-xs text-slate-400 block mb-1 leading-snug">{labels?.location || 'Konum & Ulaşım'}</span>
+                <span className="font-serif text-lg sm:text-xl font-bold text-white mt-auto">{ratingSummary.location}</span>
               </div>
-              <div className="bg-hotel-950/60 p-2.5 sm:p-3.5 rounded-xl border border-slate-800 text-center">
-                <span className="text-[11px] sm:text-xs text-slate-400 block mb-1">{labels?.service || 'Hizmet & İlgi'}</span>
-                <span className="font-serif text-lg sm:text-xl font-bold text-white">{ratingSummary.service}</span>
+              <div className="bg-hotel-950/60 p-2.5 sm:p-3.5 rounded-xl border border-slate-800 text-center flex flex-col justify-between items-center h-full min-h-[76px]">
+                <span className="text-[11px] sm:text-xs text-slate-400 block mb-1 leading-snug">{labels?.service || 'Hizmet & İlgi'}</span>
+                <span className="font-serif text-lg sm:text-xl font-bold text-white mt-auto">{ratingSummary.service}</span>
               </div>
-              <div className="bg-hotel-950/60 p-2.5 sm:p-3.5 rounded-xl border border-slate-800 text-center">
-                <span className="text-[11px] sm:text-xs text-slate-400 block mb-1">{labels?.comfort || 'Oda Konforu'}</span>
-                <span className="font-serif text-lg sm:text-xl font-bold text-white">{ratingSummary.comfort}</span>
+              <div className="bg-hotel-950/60 p-2.5 sm:p-3.5 rounded-xl border border-slate-800 text-center flex flex-col justify-between items-center h-full min-h-[76px]">
+                <span className="text-[11px] sm:text-xs text-slate-400 block mb-1 leading-snug">{labels?.comfort || 'Oda Konforu'}</span>
+                <span className="font-serif text-lg sm:text-xl font-bold text-white mt-auto">{ratingSummary.comfort}</span>
               </div>
             </div>
 

@@ -68,7 +68,7 @@ export const FeaturesSection = () => {
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 group-hover:scale-110 group-hover:bg-gold-500/20 transition-all duration-300">
                       <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
-                    <span className="text-[11px] font-semibold text-gold-400 uppercase tracking-wider px-2.5 py-1 rounded-full bg-gold-500/10 border border-gold-500/20">
+                    <span className="text-[11px] font-semibold text-gold-400 uppercase tracking-wider px-2.5 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 truncate max-w-[190px] sm:max-w-none shrink-0">
                       {item.highlight}
                     </span>
                   </div>

@@ -143,15 +143,16 @@ export default function DiningSection({ onOpenBooking }) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-hotel-950/80 via-transparent to-transparent" />
               
-              {/* Zoom badge */}
-              <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs bg-hotel-950/85 backdrop-blur-md text-gold-300 border border-gold-500/20 flex items-center gap-1.5 z-10">
-                <Maximize2 className="w-3.5 h-3.5" /> {content.gallerySection?.zoomLabel || 'Büyüt'}
-              </div>
+              {/* Top Bar Badges (Collision-proof flex container) */}
+              <div className="absolute top-2.5 inset-x-2.5 flex items-center justify-between gap-1.5 z-10 pointer-events-none">
+                <div className="px-2.5 py-1 rounded-full text-[10px] sm:text-xs bg-hotel-950/90 backdrop-blur-md text-slate-200 border border-white/10 flex items-center gap-1 shadow-sm shrink-0">
+                  <Camera className="w-3.5 h-3.5 text-gold-400 shrink-0" />
+                  <span>{activePhotoIdx + 1} / {currentMode.images.length}</span>
+                </div>
 
-              {/* Photo Count indicator */}
-              <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs bg-hotel-950/85 backdrop-blur-md text-slate-200 border border-white/10 flex items-center gap-1 z-10">
-                <Camera className="w-3.5 h-3.5 text-gold-400" />
-                <span>{activePhotoIdx + 1} / {currentMode.images.length}</span>
+                <div className="px-2.5 py-1 rounded-full text-[10px] sm:text-xs bg-hotel-950/90 backdrop-blur-md text-gold-300 border border-gold-500/25 flex items-center gap-1.5 shadow-sm shrink-0">
+                  <Maximize2 className="w-3.5 h-3.5 shrink-0" /> {content.gallerySection?.zoomLabel || 'Büyüt'}
+                </div>
               </div>
 
               {/* Bottom Info Bar */}

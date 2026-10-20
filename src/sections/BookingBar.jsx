@@ -55,13 +55,13 @@ export const BookingBar = ({ onSearchBooking }) => {
         </div>
 
         {/* Booking Form Grid */}
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-3.5 items-end">
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-2.5 sm:gap-3.5 items-end">
           
           {/* Check-in Date */}
-          <div className="sm:col-span-1 lg:col-span-2 space-y-1.5">
+          <div className="col-span-1 lg:col-span-2 space-y-1 sm:space-y-1.5">
             <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 h-5">
               <Calendar className="w-3.5 h-3.5 text-gold-400 shrink-0" />
-              <span>{bookingBar.labels.checkIn}</span>
+              <span className="truncate">{bookingBar.labels.checkIn}</span>
             </label>
             <div className="relative flex items-center">
               <input
@@ -69,18 +69,18 @@ export const BookingBar = ({ onSearchBooking }) => {
                 value={checkIn}
                 min={formatDate(today)}
                 onChange={(e) => setCheckIn(e.target.value)}
-                className="w-full h-11 glass-input text-white text-xs sm:text-sm rounded-lg pl-3 pr-10 bg-hotel-900/90 text-slate-100 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
+                className="w-full h-10 sm:h-11 glass-input text-white text-xs sm:text-sm rounded-lg pl-2.5 pr-8 sm:pl-3 sm:pr-10 bg-hotel-900/90 text-slate-100 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
                 required
               />
-              <Calendar className="w-4 h-4 text-gold-400 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
+              <Calendar className="w-4 h-4 text-gold-400 pointer-events-none absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2" />
             </div>
           </div>
 
           {/* Check-out Date */}
-          <div className="sm:col-span-1 lg:col-span-2 space-y-1.5">
+          <div className="col-span-1 lg:col-span-2 space-y-1 sm:space-y-1.5">
             <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 h-5">
               <Calendar className="w-3.5 h-3.5 text-gold-400 shrink-0" />
-              <span>{bookingBar.labels.checkOut}</span>
+              <span className="truncate">{bookingBar.labels.checkOut}</span>
             </label>
             <div className="relative flex items-center">
               <input
@@ -88,15 +88,15 @@ export const BookingBar = ({ onSearchBooking }) => {
                 value={checkOut}
                 min={checkIn}
                 onChange={(e) => setCheckOut(e.target.value)}
-                className="w-full h-11 glass-input text-white text-xs sm:text-sm rounded-lg pl-3 pr-10 bg-hotel-900/90 text-slate-100 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
+                className="w-full h-10 sm:h-11 glass-input text-white text-xs sm:text-sm rounded-lg pl-2.5 pr-8 sm:pl-3 sm:pr-10 bg-hotel-900/90 text-slate-100 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
                 required
               />
-              <Calendar className="w-4 h-4 text-gold-400 pointer-events-none absolute right-3 top-1/2 -translate-y-1/2" />
+              <Calendar className="w-4 h-4 text-gold-400 pointer-events-none absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2" />
             </div>
           </div>
 
           {/* Guests: Adults & Children */}
-          <div className="sm:col-span-1 lg:col-span-3 space-y-1.5">
+          <div className="col-span-2 sm:col-span-1 lg:col-span-3 space-y-1 sm:space-y-1.5">
             <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 h-5">
               <Users className="w-3.5 h-3.5 text-gold-400 shrink-0" />
               <span>{bookingBar.labels.adults} / {bookingBar.labels.children}</span>
@@ -106,7 +106,7 @@ export const BookingBar = ({ onSearchBooking }) => {
                 <select
                   value={adults}
                   onChange={(e) => setAdults(e.target.value)}
-                  className="w-full h-11 appearance-none glass-input text-white text-xs sm:text-sm rounded-lg pl-3 pr-7 bg-hotel-900/90 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
+                  className="w-full h-10 sm:h-11 appearance-none glass-input text-white text-xs sm:text-sm rounded-lg pl-3 pr-7 bg-hotel-900/90 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
                 >
                   {[1, 2, 3, 4].map((num) => (
                     <option key={num} value={num} className="bg-hotel-950 text-white">
@@ -120,11 +120,11 @@ export const BookingBar = ({ onSearchBooking }) => {
                 <select
                   value={childrenCount}
                   onChange={(e) => setChildrenCount(e.target.value)}
-                  className="w-full h-11 appearance-none glass-input text-white text-xs sm:text-sm rounded-lg pl-3 pr-7 bg-hotel-900/90 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
+                  className="w-full h-10 sm:h-11 appearance-none glass-input text-white text-xs sm:text-sm rounded-lg pl-3 pr-7 bg-hotel-900/90 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
                 >
                   {[0, 1, 2, 3].map((num) => (
                     <option key={num} value={num} className="bg-hotel-950 text-white">
-                      {num} Çocuk
+                      {num} {bookingBar.labels.children}
                     </option>
                   ))}
                 </select>
@@ -134,7 +134,7 @@ export const BookingBar = ({ onSearchBooking }) => {
           </div>
 
           {/* Room Selection */}
-          <div className="sm:col-span-1 lg:col-span-2 space-y-1.5">
+          <div className="col-span-2 sm:col-span-1 lg:col-span-2 space-y-1 sm:space-y-1.5">
             <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 h-5">
               <BedDouble className="w-3.5 h-3.5 text-gold-400 shrink-0" />
               <span>{bookingBar.labels.roomType}</span>
@@ -143,7 +143,7 @@ export const BookingBar = ({ onSearchBooking }) => {
               <select
                 value={selectedRoomId}
                 onChange={(e) => setSelectedRoomId(e.target.value)}
-                className="w-full h-11 appearance-none glass-input text-white text-xs sm:text-sm rounded-lg pl-3 pr-8 bg-hotel-900/90 cursor-pointer truncate focus:ring-1 focus:ring-gold-500/50"
+                className="w-full h-10 sm:h-11 appearance-none glass-input text-white text-xs sm:text-sm rounded-lg pl-3 pr-8 bg-hotel-900/90 cursor-pointer truncate focus:ring-1 focus:ring-gold-500/50"
               >
                 {roomsSection.rooms.map((room) => (
                   <option key={room.id} value={room.id} className="bg-hotel-950 text-white">
@@ -156,7 +156,7 @@ export const BookingBar = ({ onSearchBooking }) => {
           </div>
 
           {/* Search / Submit Button */}
-          <div className="sm:col-span-2 lg:col-span-3 space-y-1.5">
+          <div className="col-span-2 sm:col-span-2 lg:col-span-3 space-y-1 sm:space-y-1.5">
             <div className="h-5 hidden lg:block" aria-hidden="true" />
             <Button
               type="submit"
@@ -165,7 +165,7 @@ export const BookingBar = ({ onSearchBooking }) => {
               size="md"
               icon={Search}
               iconPosition="right"
-              className="h-11 w-full px-4 text-xs xl:text-sm font-semibold tracking-normal sm:tracking-wide flex items-center justify-center gap-2 shadow-md hover:shadow-gold-glow/50"
+              className="h-10 sm:h-11 w-full px-4 text-xs xl:text-sm font-semibold tracking-normal sm:tracking-wide flex items-center justify-center gap-2 shadow-md hover:shadow-gold-glow/50"
             >
               {bookingBar.labels.submitButton}
             </Button>

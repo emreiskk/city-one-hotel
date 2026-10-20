@@ -56,7 +56,7 @@ export const FooterSection = ({ onOpenBooking }) => {
             <div className="space-y-2 pt-2 text-xs">
               <div className="flex items-center gap-2 text-slate-300">
                 <MapPin className="w-3.5 h-3.5 text-gold-400 shrink-0" />
-                <span className="truncate">{hotel.address}</span>
+                <span className="leading-snug">{hotel.address}</span>
               </div>
               <div className="flex items-center gap-2 text-slate-300">
                 <Phone className="w-3.5 h-3.5 text-gold-400 shrink-0" />

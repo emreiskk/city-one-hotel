@@ -67,42 +67,44 @@ export const HeroSection = ({ onOpenBooking }) => {
             ))}
           </div>
 
-          {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+          {/* Action CTAs: Streamlined mobile layout to eliminate vertical bloating */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4">
             <Button
               variant="gold"
-              size="lg"
+              size="md"
               icon={Calendar}
               iconPosition="left"
               onClick={() => onOpenBooking()}
-              className="text-base shadow-xl"
+              className="py-3 sm:!py-3.5 sm:!px-7 text-sm sm:text-base shadow-xl"
             >
               {hero.ctaPrimary}
             </Button>
 
-            <Button
-              as="a"
-              href="#rooms"
-              variant="outline"
-              size="lg"
-              icon={ArrowRight}
-              iconPosition="right"
-              className="text-base"
-            >
-              {hero.ctaSecondary}
-            </Button>
+            <div className="grid grid-cols-2 sm:flex sm:items-center gap-2.5 sm:gap-4">
+              <Button
+                as="a"
+                href="#rooms"
+                variant="outline"
+                size="md"
+                icon={ArrowRight}
+                iconPosition="right"
+                className="py-2.5 sm:!py-3.5 sm:!px-7 text-xs sm:text-base justify-center"
+              >
+                <span className="truncate">{hero.ctaSecondary}</span>
+              </Button>
 
-            <Button
-              type="button"
-              variant="dark"
-              size="lg"
-              icon={Play}
-              iconPosition="left"
-              onClick={() => setIsVideoModalOpen(true)}
-              className="text-base cursor-pointer border-gold-500/30 text-gold-300 hover:text-white"
-            >
-              {hero.ctaVirtualTour}
-            </Button>
+              <Button
+                type="button"
+                variant="dark"
+                size="md"
+                icon={Play}
+                iconPosition="left"
+                onClick={() => setIsVideoModalOpen(true)}
+                className="py-2.5 sm:!py-3.5 sm:!px-7 text-xs sm:text-base cursor-pointer border-gold-500/30 text-gold-300 hover:text-white justify-center"
+              >
+                <span className="truncate">{hero.ctaVirtualTour}</span>
+              </Button>
+            </div>
           </div>
 
         </div>
