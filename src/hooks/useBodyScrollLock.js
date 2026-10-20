@@ -17,6 +17,11 @@ let prevBodyWidth = '';
 let prevBodyOverflow = '';
 let prevHtmlOverflow = '';
 let prevBodyPaddingRight = '';
+let skipNextScrollRestore = false;
+
+export function setSkipScrollRestore(skip = true) {
+  skipNextScrollRestore = skip;
+}
 
 export function useBodyScrollLock(isLocked) {
   useEffect(() => {
@@ -96,10 +101,14 @@ export function useBodyScrollLock(isLocked) {
         document.body.style.width = prevBodyWidth;
         document.body.style.paddingRight = prevBodyPaddingRight;
 
-        const originalScrollBehavior = document.documentElement.style.scrollBehavior;
-        document.documentElement.style.scrollBehavior = 'auto';
-        window.scrollTo(0, savedScrollY);
-        document.documentElement.style.scrollBehavior = originalScrollBehavior;
+        if (!skipNextScrollRestore) {
+          const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+          document.documentElement.style.scrollBehavior = 'auto';
+          window.scrollTo(0, savedScrollY);
+          document.documentElement.style.scrollBehavior = originalScrollBehavior;
+        } else {
+          skipNextScrollRestore = false;
+        }
       }
     };
   }, [isLocked]);

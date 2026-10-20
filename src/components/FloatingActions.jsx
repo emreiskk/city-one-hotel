@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { siteContent } from '../config/siteContent';
+import { useLanguage } from '../context/LanguageContext';
 import { Phone, MessageCircle, ArrowUp } from 'lucide-react';
 
 export const FloatingActions = () => {
-  const { hotel, floatingActions } = siteContent;
+  const { content } = useLanguage();
+  const { hotel, floatingActions } = content;
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -51,17 +52,17 @@ export const FloatingActions = () => {
         </span>
       </a>
 
-      {/* Primary Fixed WhatsApp Reservation Button */}
+      {/* Primary Fixed WhatsApp Reservation Button in Unified Luxury Gold */}
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         title={floatingActions.whatsappTooltip}
         aria-label={floatingActions.whatsappTooltip}
-        className="group relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-110 active:scale-95"
+        className="group relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gold-gradient hover:bg-gold-gradient-hover text-white shadow-2xl hover:shadow-gold-glow/50 border border-gold-300/40 transition-all duration-300 hover:scale-110 active:scale-95"
       >
-        {/* Pulsing ring */}
-        <span className="absolute -inset-1 rounded-full bg-emerald-500/40 animate-ping opacity-75 pointer-events-none" />
+        {/* Pulsing gold luxury ring */}
+        <span className="absolute -inset-1 rounded-full bg-gold-400/30 animate-ping opacity-75 pointer-events-none" />
         
         <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 relative z-10" />
 

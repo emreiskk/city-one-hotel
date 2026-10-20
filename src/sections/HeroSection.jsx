@@ -1,25 +1,35 @@
-import React from 'react';
-import { siteContent } from '../config/siteContent';
+import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
 import { Button } from '../design-system/Button';
-import { Calendar, ArrowRight, CheckCircle2, Crown } from 'lucide-react';
+import { Calendar, ArrowRight, CheckCircle2, Crown, Play } from 'lucide-react';
+import { VideoModal } from '../components/VideoModal';
 
 export const HeroSection = ({ onOpenBooking }) => {
-  const { hero, hotel } = siteContent;
+  const { content } = useLanguage();
+  const { hero, hotel } = content;
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   return (
     <section id="hero" className="relative min-h-[90vh] lg:min-h-screen flex items-center pt-24 sm:pt-36 lg:pt-40 pb-12 sm:pb-16 overflow-hidden">
       
       {/* Background with Dark Glass & Gradient Overlay */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={hero.backgroundImage}
-          alt={hotel.name}
-          className="w-full h-full object-cover object-center scale-105 animate-in fade-in duration-1000"
-          loading="eager"
-          fetchPriority="high"
-        />
+        <picture>
+          <source type="image/avif" srcSet="/assets/hotel/exterior/hero-aerial.avif" />
+          <img
+            src={hero.backgroundImage}
+            alt={hotel.name}
+            className="w-full h-full object-cover object-[center_22%] scale-105 animate-in fade-in duration-1000"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </picture>
+        {/* Vertical vignette gradient */}
         <div className="absolute inset-0 bg-hero-overlay" />
+        {/* Left-to-right subtle luxury vignette to guarantee text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-hotel-950/90 via-hotel-950/50 to-transparent pointer-events-none" />
+        {/* Subtle gold radiance at top */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold-500/10 via-transparent to-transparent pointer-events-none" />
       </div>
 
@@ -58,7 +68,7 @@ export const HeroSection = ({ onOpenBooking }) => {
           </div>
 
           {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
             <Button
               variant="gold"
               size="lg"
@@ -81,6 +91,18 @@ export const HeroSection = ({ onOpenBooking }) => {
             >
               {hero.ctaSecondary}
             </Button>
+
+            <Button
+              type="button"
+              variant="dark"
+              size="lg"
+              icon={Play}
+              iconPosition="left"
+              onClick={() => setIsVideoModalOpen(true)}
+              className="text-base cursor-pointer border-gold-500/30 text-gold-300 hover:text-white"
+            >
+              {hero.ctaVirtualTour}
+            </Button>
           </div>
 
         </div>
@@ -100,6 +122,16 @@ export const HeroSection = ({ onOpenBooking }) => {
         </div>
 
       </div>
+
+      {/* Hero Video Modal */}
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        videoUrl="/assets/hotel/videos/hotel-tour-04.mp4"
+        title="City One Hotel Kayseri - Canlı Tanıtım Turu"
+        subtitle="Erciyes'in Eteklerinde 4 Yıldızlı Lüks Deneyim"
+        onClose={() => setIsVideoModalOpen(false)}
+      />
+
     </section>
   );
 };

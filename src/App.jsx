@@ -7,7 +7,7 @@ import { FooterSection } from './sections/FooterSection';
 import { FloatingActions } from './components/FloatingActions';
 import { BookingModal } from './components/BookingModal';
 import { SectionSkeleton } from './components/SectionSkeleton';
-import { siteContent } from './config/siteContent';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 
 // Dağıtık Yükleme (Code-Splitting) - Core Web Vitals Optimizasyonu
 const RoomsSection = lazy(() => import('./sections/RoomsSection'));
@@ -15,12 +15,14 @@ const SpaSection = lazy(() => import('./sections/SpaSection'));
 const SkiSection = lazy(() => import('./sections/SkiSection'));
 const MeetingsSection = lazy(() => import('./sections/MeetingsSection'));
 const DiningSection = lazy(() => import('./sections/DiningSection'));
+const GallerySection = lazy(() => import('./sections/GallerySection'));
 const ReviewsSection = lazy(() => import('./sections/ReviewsSection'));
 const FaqSection = lazy(() => import('./sections/FaqSection'));
 const ContactSection = lazy(() => import('./sections/ContactSection'));
 
-export default function App() {
-  const { roomsSection } = siteContent;
+function MainApp() {
+  const { content } = useLanguage();
+  const { roomsSection } = content;
 
   // Varsayılan rezervasyon tarihleri
   const today = new Date();
@@ -106,6 +108,11 @@ export default function App() {
           <DiningSection onOpenBooking={() => handleOpenBooking()} />
         </Suspense>
 
+        {/* LAZY: Fotoğraf & Canlı Video Galerisi */}
+        <Suspense fallback={<SectionSkeleton height="h-[650px]" />}>
+          <GallerySection />
+        </Suspense>
+
         {/* LAZY: Gerçek Misafir Yorumları & Skor Kartı */}
         <Suspense fallback={<SectionSkeleton height="h-[500px]" />}>
           <ReviewsSection />
@@ -136,5 +143,13 @@ export default function App() {
       />
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <MainApp />
+    </LanguageProvider>
   );
 }

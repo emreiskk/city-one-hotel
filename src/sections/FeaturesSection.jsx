@@ -1,5 +1,5 @@
 import React from 'react';
-import { siteContent } from '../config/siteContent';
+import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
 import { Card } from '../design-system/Card';
 import { 
@@ -9,6 +9,8 @@ import {
   Briefcase, 
   Compass, 
   ShieldCheck,
+  Dumbbell,
+  Coffee,
   Gem
 } from 'lucide-react';
 
@@ -18,11 +20,14 @@ const iconMap = {
   Utensils,
   Briefcase,
   Compass,
-  ShieldCheck
+  ShieldCheck,
+  Dumbbell,
+  Coffee
 };
 
 export const FeaturesSection = () => {
-  const { keyFeatures } = siteContent;
+  const { content } = useLanguage();
+  const { keyFeatures, hotel } = content;
 
   return (
     <section className="py-14 sm:py-20 lg:py-28 relative overflow-hidden bg-hotel-950">
@@ -81,7 +86,7 @@ export const FeaturesSection = () => {
 
                 <div className="mt-6 pt-4 border-t border-slate-800/60 flex items-center justify-between">
                   <span className="text-xs font-semibold text-slate-400 group-hover:text-gold-400 transition-colors">
-                    {siteContent.hotel.name}
+                    {hotel.name}
                   </span>
                   <div className="w-6 h-0.5 bg-slate-800 group-hover:bg-gold-400 transition-colors rounded-full" />
                 </div>

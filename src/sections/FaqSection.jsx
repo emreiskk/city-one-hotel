@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { siteContent } from '../config/siteContent';
+import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
 import { Card } from '../design-system/Card';
 import { HelpCircle, ChevronDown } from 'lucide-react';
 
 export default function FaqSection() {
-  const { faqSection } = siteContent;
+  const { content } = useLanguage();
+  const { faqSection } = content;
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggleAccordion = (index) => {

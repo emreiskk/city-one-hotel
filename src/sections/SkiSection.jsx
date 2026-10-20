@@ -1,12 +1,13 @@
 import React from 'react';
-import { siteContent } from '../config/siteContent';
+import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
 import { Button } from '../design-system/Button';
 import { Card } from '../design-system/Card';
 import { MountainSnow, Calendar, Clock, Compass, ShieldCheck } from 'lucide-react';
 
 export default function SkiSection({ onOpenBooking }) {
-  const { skiSection, hero } = siteContent;
+  const { content } = useLanguage();
+  const { skiSection, hero, hotel, floatingActions } = content;
 
   return (
     <section id="ski" className="py-14 sm:py-20 lg:py-28 relative overflow-hidden bg-hotel-900/60 border-t border-slate-800">
@@ -45,11 +46,15 @@ export default function SkiSection({ onOpenBooking }) {
               {/* Distance Floating Stat Badge */}
               <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 p-3 sm:p-4 rounded-xl bg-hotel-950/90 backdrop-blur-xl border border-white/10 flex items-center justify-between">
                 <div>
-                  <span className="text-[11px] sm:text-xs text-slate-400 block font-medium">Erciyes Pistlerine Mesafe</span>
+                  <span className="text-[11px] sm:text-xs text-slate-400 block font-medium">
+                    {skiSection.distanceLabel || 'Erciyes Pistlerine Mesafe'}
+                  </span>
                   <span className="font-serif text-xl sm:text-2xl font-bold text-gold-400">{skiSection.distance}</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[11px] sm:text-xs text-slate-400 block font-medium">Ulaşım Süresi</span>
+                  <span className="text-[11px] sm:text-xs text-slate-400 block font-medium">
+                    {skiSection.durationLabel || 'Ulaşım Süresi'}
+                  </span>
                   <span className="text-xs sm:text-sm font-semibold text-slate-200 flex items-center justify-end gap-1">
                     <Clock className="w-3.5 h-3.5 text-gold-400" /> {skiSection.duration}
                   </span>
@@ -96,14 +101,14 @@ export default function SkiSection({ onOpenBooking }) {
               </Button>
               <Button
                 as="a"
-                href={`https://wa.me/${siteContent.hotel.whatsappRaw}?text=${encodeURIComponent(siteContent.floatingActions.whatsappMessage)}`}
+                href={`https://wa.me/${hotel.whatsappRaw}?text=${encodeURIComponent(floatingActions.whatsappMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="dark"
                 size="md"
                 className="flex-1 w-full"
               >
-                Kayak Paketi Bilgisi Al
+                {skiSection.shuttleButton || 'Kayak Paketi Bilgisi Al'}
               </Button>
             </div>
           </div>

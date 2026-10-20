@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { siteContent } from '../config/siteContent';
+import { useLanguage } from '../context/LanguageContext';
 import { Button } from '../design-system/Button';
 import { Card } from '../design-system/Card';
 import { 
@@ -19,7 +19,8 @@ import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
   useBodyScrollLock(isOpen);
 
-  const { bookingModal, roomsSection, hotel, floatingActions } = siteContent;
+  const { content, currentLang } = useLanguage();
+  const { bookingModal, roomsSection, hotel, floatingActions, bookingBar } = content;
 
   // Initial State Setup - unconditionally called on every render
   const [step, setStep] = useState(1);
@@ -77,9 +78,9 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
 
   const whatsappReservationUrl = useMemo(() => {
     if (!selectedRoom) return '#';
-    const text = `Merhaba City One Hotel, ${reservationCode || 'Yeni'} kodlu rezervasyon talebim hakkında bilgi almak istiyorum.\nOda: ${selectedRoom.name}\nGiriş: ${initialData.checkIn}\nÇıkış: ${initialData.checkOut}\nMisafir: ${initialData.adults || 2} Yetişkin\nTutar: ${finalTotal.toLocaleString('tr-TR')} ₺`;
+    const text = `City One Hotel - ${bookingModal.step1Title}: ${reservationCode || 'Yeni'}\n${selectedRoom.name}\n${initialData.checkIn} - ${initialData.checkOut} (${nights} ${bookingModal.nightUnit})\n${initialData.adults || 2} ${bookingBar.labels?.adults || 'Yetişkin'}\n${bookingModal.totalPrice}: ${finalTotal.toLocaleString('tr-TR')} ₺`;
     return `https://wa.me/${hotel.whatsappRaw}?text=${encodeURIComponent(text)}`;
-  }, [reservationCode, selectedRoom, initialData, finalTotal, hotel.whatsappRaw]);
+  }, [reservationCode, selectedRoom, initialData, finalTotal, hotel.whatsappRaw, nights, bookingModal, bookingBar]);
 
   // Hook rules guarantee: return null ONLY AFTER all hooks are defined
   if (!isOpen) return null;
@@ -113,7 +114,7 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
             type="button"
             onClick={handleResetAndClose}
             className="w-8 h-8 rounded-lg text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-800 transition-colors shrink-0 ml-2 flex items-center justify-center"
-            aria-label="Kapat"
+            aria-label={bookingModal.cancelButton || 'Kapat'}
           >
             <X className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
@@ -140,15 +141,15 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs text-slate-300">
                   <div className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-gold-400" />
-                    <span>Giriş: {initialData.checkIn}</span>
+                    <span>{(bookingBar.labels?.checkIn || 'Giriş')}: {initialData.checkIn}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-gold-400" />
-                    <span>Çıkış: {initialData.checkOut}</span>
+                    <span>{(bookingBar.labels?.checkOut || 'Çıkış')}: {initialData.checkOut}</span>
                   </div>
                   <div className="flex items-center gap-1.5 col-span-2 sm:col-span-1">
                     <Users className="w-3.5 h-3.5 text-gold-400" />
-                    <span>{initialData.adults || 2} Yetişkin {initialData.children ? `, ${initialData.children} Çocuk` : ''}</span>
+                    <span>{initialData.adults || 2} {bookingBar.labels?.adults || 'Yetişkin'} {initialData.children ? `, ${initialData.children} ${bookingBar.labels?.children || 'Çocuk'}` : ''}</span>
                   </div>
                 </div>
               </div>
@@ -166,7 +167,7 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
 
                 <div className="flex justify-between text-emerald-400">
                   <span className="flex items-center gap-1">
-                    <BadgePercent className="w-3.5 h-3.5" /> Resmi Web Özel İndirimi (%10)
+                    <BadgePercent className="w-3.5 h-3.5" /> {bookingBar.labels?.directBookingBadge || 'Resmi Web Özel İndirimi (%10)'}
                   </span>
                   <span>- {directDiscount.toLocaleString('tr-TR')} ₺</span>
                 </div>
@@ -182,7 +183,7 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
                       {bookingModal.totalPrice}
                     </span>
                     <span className="text-[11px] text-slate-400">
-                      Kahvaltı & 1500 m² SPA Dahildir
+                      {roomsSection.pricingNote || 'Kahvaltı & 1500 m² SPA Dahildir'}
                     </span>
                   </div>
                   <span className="font-serif text-2xl font-bold text-gold-400">
@@ -266,10 +267,10 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
 
               <div>
                 <span className="text-xs font-semibold text-emerald-400 uppercase tracking-widest block mb-1">
-                  REZERVASYON TALEBİ BAŞARILI
+                  {bookingModal.step2Title}
                 </span>
                 <h4 className="font-serif text-2xl font-bold text-white mb-2">
-                  Sayın {formData.fullName}, Teşekkür Ederiz!
+                  {formData.fullName}
                 </h4>
                 <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto">
                   {bookingModal.successMessage}
@@ -289,23 +290,23 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
               {/* Detailed receipt */}
               <div className="text-xs text-slate-300 bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-left max-w-md mx-auto space-y-1.5">
                 <div className="flex justify-between">
-                  <span>Otel:</span>
-                  <span className="font-semibold text-white">{hotel.name}</span>
+                  <span>{hotel.name}</span>
+                  <span className="font-semibold text-white">{hotel.starLabel}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Oda Tipi:</span>
+                  <span>{bookingBar.labels?.roomType || 'Oda'}:</span>
                   <span className="font-semibold text-white">{selectedRoom.name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Tarihler:</span>
-                  <span className="font-semibold text-white">{initialData.checkIn} - {initialData.checkOut} ({nights} Gece)</span>
+                  <span>{bookingModal.datesSummary || 'Tarihler'}:</span>
+                  <span className="font-semibold text-white">{initialData.checkIn} - {initialData.checkOut} ({nights} {bookingModal.nightUnit})</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Misafir:</span>
+                  <span>{bookingModal.guestsSummary || 'Misafir'}:</span>
                   <span className="font-semibold text-white">{formData.fullName} ({formData.phone})</span>
                 </div>
                 <div className="flex justify-between pt-2 border-t border-slate-800 font-bold text-gold-400 text-sm">
-                  <span>Ödenecek Tutar:</span>
+                  <span>{bookingModal.totalPrice}:</span>
                   <span>{finalTotal.toLocaleString('tr-TR')} ₺</span>
                 </div>
               </div>
@@ -323,7 +324,7 @@ export const BookingModal = ({ isOpen, onClose, initialData = {} }) => {
                   iconPosition="left"
                   className="flex-1 w-full"
                 >
-                  WhatsApp ile Onay Al
+                  {bookingModal.whatsappConfirmButton || 'WhatsApp ile Onay Al'}
                 </Button>
                 <Button
                   variant="dark"

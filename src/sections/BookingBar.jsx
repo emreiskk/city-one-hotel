@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { siteContent } from '../config/siteContent';
+import { useLanguage } from '../context/LanguageContext';
 import { Button } from '../design-system/Button';
 import { Card } from '../design-system/Card';
 import { Calendar, Users, BedDouble, Search, BadgePercent, ChevronDown } from 'lucide-react';
 
 export const BookingBar = ({ onSearchBooking }) => {
-  const { bookingBar, roomsSection } = siteContent;
+  const { content } = useLanguage();
+  const { bookingBar, roomsSection } = content;
 
   // Varsayılan giriş tarihi: yarın, çıkış: 2 gün sonrası
   const today = new Date();
