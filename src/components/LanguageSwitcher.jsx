@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { Globe, ChevronDown, Check } from 'lucide-react';
+import { Globe, ChevronDown, Check, ChevronRight } from 'lucide-react';
 
 export const LanguageSwitcher = ({ 
   variant = 'dropdown', 
@@ -116,7 +116,7 @@ export const LanguageSwitcher = ({
               <span>{headerTitle}</span>
             </span>
             <span className="text-[10px] text-slate-400 font-mono font-medium shrink-0 px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">
-              {activeLanguage.code.toUpperCase()}
+              {(activeLanguage?.code || 'tr').toUpperCase()}
             </span>
           </div>
 

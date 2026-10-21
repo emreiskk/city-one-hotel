@@ -25,12 +25,12 @@ export const LogoEmblem = ({ size = 'md', className = '', alt = 'City One Hotel 
 
   return (
     <div
-      className={`relative inline-flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105 select-none ${currentSize.container} ${className}`}
+      className={`relative inline-flex items-center justify-center shrink-0 select-none ${currentSize.container} ${className}`}
     >
       <img
         src="/assets/hotel/logo.png"
         alt={alt}
-        className={`${currentSize.img} max-w-none object-contain select-none drop-shadow-[0_2px_10px_rgba(217,170,84,0.3)] filter`}
+        className={`${currentSize.img} max-w-none object-contain select-none`}
         loading="eager"
       />
     </div>

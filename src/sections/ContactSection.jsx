@@ -20,7 +20,9 @@ export default function ContactSection() {
     currentLang === 'en' ? 'Call' : currentLang === 'de' ? 'Anrufen' : currentLang === 'ru' ? 'Позвонить' : 'Ara'
   );
 
-  const googleMapsUrl = 'https://www.google.com/maps/place/City+One+Hotel/@38.729572,35.474676,17z/data=!3m1!4b1!4m9!3m8!1s0x152b1216503c72b1:0xe541da4fe08169d2!8m2!3d38.729572!4d35.474676!16s%2Fg%2F1tf7w433';
+  const googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=City+One+Hotel+Kayseri';
+  const googleDirectionsUrl = 'https://www.google.com/maps/dir/?api=1&destination=City+One+Hotel+Kayseri';
+
   const openMapsLabel = currentLang === 'en' 
     ? 'Open in Google Maps' 
     : currentLang === 'de' 
@@ -297,7 +299,7 @@ export default function ContactSection() {
                   <span className="truncate">{hotel.locationHighlights || 'Kayseri Şehir Merkezi • 24/7 Vale & Kapalı Otopark'}</span>
                 </span>
                 <a
-                  href={googleMapsUrl}
+                  href={googleDirectionsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gold-400 hover:text-gold-300 font-semibold underline underline-offset-2 shrink-0 ml-3 flex items-center gap-1"
