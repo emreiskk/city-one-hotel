@@ -278,7 +278,7 @@ export const GallerySection = () => {
         subtitle: item.subtitle
       });
     } else {
-      const idx = allPhotoItems.findIndex(p => p.src === item.src);
+      const idx = allPhotoItems.findIndex(p => p.id === item.id);
       setLightboxData({
         isOpen: true,
         items: allPhotoItems,

@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
 import { Button } from '../design-system/Button';
 import { Card } from '../design-system/Card';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle2 } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, ExternalLink, Navigation } from 'lucide-react';
 
 export default function ContactSection() {
   const { content, currentLang } = useLanguage();
@@ -19,6 +19,23 @@ export default function ContactSection() {
   const callActionLabel = contactSection.callLabel || (
     currentLang === 'en' ? 'Call' : currentLang === 'de' ? 'Anrufen' : currentLang === 'ru' ? 'Позвонить' : 'Ara'
   );
+
+  const googleMapsUrl = 'https://maps.google.com/?cid=16520117467261954514';
+  const openMapsLabel = currentLang === 'en' 
+    ? 'Open in Google Maps' 
+    : currentLang === 'de' 
+      ? 'In Google Maps öffnen' 
+      : currentLang === 'ru' 
+        ? 'Открыть в Google Maps' 
+        : "Google Haritalar'da Aç";
+
+  const directionsLabel = currentLang === 'en'
+    ? 'Directions'
+    : currentLang === 'de'
+      ? 'Route'
+      : currentLang === 'ru'
+        ? 'Маршрут'
+        : 'Yol Tarifi Al';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,6 +84,18 @@ export default function ContactSection() {
                   <span className="text-[11px] text-gold-400 mt-2 block font-medium">
                     {hotel.locationHighlights}
                   </span>
+                  <div className="mt-2.5 pt-2 border-t border-slate-800/60">
+                    <a
+                      href={googleMapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-500/10 hover:bg-gold-500/20 text-gold-300 border border-gold-500/30 text-xs font-semibold transition-all group cursor-pointer"
+                    >
+                      <Navigation className="w-3.5 h-3.5 text-gold-400 group-hover:scale-110 transition-transform" />
+                      <span>{openMapsLabel}</span>
+                      <ExternalLink className="w-3 h-3 text-gold-400/80" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </Card>
@@ -215,19 +244,69 @@ export default function ContactSection() {
           {/* Map & Quick Message Form Column */}
           <div className="lg:col-span-7 space-y-6">
             
-            {/* Embedded Google Map */}
-            <div className="rounded-2xl overflow-hidden border border-slate-800 shadow-2xl aspect-[16/9] w-full bg-slate-900 relative">
-              <iframe
-                title="City One Hotel Kayseri Konum Haritası"
-                src={contactSection.mapEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full"
-              />
+            {/* Embedded Google Map with Direct Google Maps Integration */}
+            <div className="rounded-2xl overflow-hidden border border-slate-800 shadow-2xl w-full bg-slate-900 relative group">
+              
+              {/* Floating Header Card over the Map */}
+              <div className="absolute top-3 left-3 right-3 z-10 flex flex-wrap items-center justify-between gap-2.5 p-2.5 sm:p-3 rounded-xl bg-hotel-950/90 backdrop-blur-md border border-slate-700/80 shadow-lg pointer-events-auto">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-8 h-8 rounded-lg bg-gold-500/20 border border-gold-400/30 flex items-center justify-center text-gold-400 shrink-0">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-xs sm:text-sm font-bold text-white truncate">
+                      City One Hotel Kayseri
+                    </div>
+                    <div className="text-[11px] text-slate-300 truncate hidden xs:block sm:block">
+                      {contactSection.addressText || 'Gevhernesibe Mah. Salih Avgun Paşa Cd. No:3, Kocasinan / Kayseri'}
+                    </div>
+                  </div>
+                </div>
+
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg bg-gold-gradient text-white text-xs font-bold shadow-md shadow-gold-500/20 hover:shadow-gold-500/40 hover:scale-102 active:scale-98 transition-all shrink-0 cursor-pointer"
+                >
+                  <Navigation className="w-3.5 h-3.5 text-white" />
+                  <span>{openMapsLabel}</span>
+                  <ExternalLink className="w-3 h-3 text-white/90" />
+                </a>
+              </div>
+
+              {/* Responsive Google Maps Iframe */}
+              <div className="aspect-[16/9] min-h-[300px] sm:min-h-[360px] w-full pt-14 sm:pt-0">
+                <iframe
+                  title="City One Hotel Kayseri Konum Haritası"
+                  src={contactSection.mapEmbedUrl}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full h-full"
+                />
+              </div>
+
+              {/* Bottom bar with quick address pill */}
+              <div className="p-3 bg-hotel-950/95 border-t border-slate-800 flex items-center justify-between text-xs text-slate-300">
+                <span className="flex items-center gap-2 truncate">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse" />
+                  <span className="truncate">{hotel.locationHighlights || 'Kayseri Şehir Merkezi • 24/7 Vale & Kapalı Otopark'}</span>
+                </span>
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gold-400 hover:text-gold-300 font-semibold underline underline-offset-2 shrink-0 ml-3 flex items-center gap-1"
+                >
+                  <span>{directionsLabel}</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+
             </div>
 
             {/* Quick Contact Inquiry Form */}
