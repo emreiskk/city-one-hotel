@@ -49,7 +49,7 @@ export const LanguageSwitcher = ({
   // Segmented / Bar variant (for mobile drawer or footer)
   if (variant === 'segmented') {
     return (
-      <div className={`flex items-center gap-1.5 p-1 rounded-xl bg-slate-900/90 border border-slate-700/80 ${className}`}>
+      <div className={`flex items-center gap-1.5 p-1.5 rounded-xl bg-hotel-900/90 border border-slate-800/90 shadow-md ${className}`}>
         {languageList.map((lang) => {
           const isActive = lang.code === currentLang;
           return (
@@ -57,10 +57,10 @@ export const LanguageSwitcher = ({
               key={lang.code}
               type="button"
               onClick={() => setLanguage(lang.code)}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 isActive
-                  ? 'bg-gold-gradient text-white shadow-gold-glow/30 scale-[1.02]'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/80'
+                  ? 'bg-gold-gradient text-white font-semibold shadow-lg shadow-gold-500/25 border border-gold-400/40'
+                  : 'bg-transparent text-slate-300 hover:text-white hover:bg-hotel-800/80 border border-transparent'
               }`}
             >
               <span className="text-sm">{lang.flag}</span>
@@ -75,41 +75,53 @@ export const LanguageSwitcher = ({
   const isUp = direction === 'up';
 
   const headerTitle = {
-    tr: 'Dil Seçimi',
-    en: 'Language',
-    de: 'Sprachauswahl',
-    ru: 'Выбор языка'
-  }[currentLang] || 'Dil Seçimi';
+    tr: 'DİL SEÇİMİ',
+    en: 'LANGUAGE',
+    de: 'SPRACHE',
+    ru: 'ЯЗЫК'
+  }[currentLang] || 'DİL SEÇİMİ';
 
-  // Dropdown variant (standard for navbar desktop & footer dropup)
+  // Dropdown variant (styled like top categories card)
   return (
     <div className={`relative inline-block text-left ${isOpen ? 'z-[60]' : 'z-20'} ${className}`} ref={dropdownRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-900/85 hover:bg-slate-800 border border-slate-700/80 text-slate-200 hover:text-white text-xs sm:text-sm font-semibold transition-all cursor-pointer shadow-sm active:scale-95"
+        className={`flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer shadow-md shrink-0 group border ring-1 ring-white/5 active:scale-95 ${
+          isOpen
+            ? 'bg-gold-500/15 border-gold-400/50 text-white shadow-gold-glow/20'
+            : 'bg-hotel-900/90 hover:bg-hotel-800/90 border-slate-800/90 hover:border-gold-500/40 text-slate-200 hover:text-white'
+        }`}
         aria-expanded={isOpen}
         aria-haspopup="true"
         aria-label="Dil Seçimi / Change Language"
       >
         <span className="text-base leading-none">{activeLanguage.flag}</span>
         <span className="tracking-wider">{activeLanguage.label}</span>
-        <ChevronDown className={`w-3.5 h-3.5 text-gold-400 transition-transform duration-200 ${
+        <ChevronDown className={`w-3.5 h-3.5 text-slate-400 group-hover:text-gold-400 transition-transform duration-200 ${
           isOpen ? (isUp ? 'rotate-0' : 'rotate-180') : (isUp ? 'rotate-180' : 'rotate-0')
         }`} />
       </button>
 
       {isOpen && (
         <div 
-          className={`absolute ${effectiveAlign === 'left' ? 'left-0' : 'right-0'} ${isUp ? 'bottom-full mb-2 slide-in-from-bottom-2' : 'top-full mt-2 slide-in-from-top-2'} w-44 rounded-2xl bg-hotel-950/98 backdrop-blur-2xl border border-gold-500/40 shadow-2xl z-[100] p-1.5 overflow-hidden animate-in fade-in duration-150`}
+          className={`absolute ${effectiveAlign === 'left' ? 'left-0' : 'right-0'} ${
+            isUp ? 'bottom-full mb-2 slide-in-from-bottom-2' : 'top-full mt-2 slide-in-from-top-2'
+          } w-52 sm:w-56 rounded-2xl bg-hotel-950/95 backdrop-blur-2xl border border-gold-500/25 shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_25px_rgba(217,170,84,0.12)] ring-1 ring-white/10 z-[100] p-2.5 overflow-hidden animate-in fade-in duration-200`}
         >
-          {/* Uyumlu, lüks altın tonlu ve yerelleştirilmiş başlık şeridi */}
-          <div className="px-3 py-1.5 text-[10px] uppercase font-bold tracking-widest text-gold-300 border-b border-gold-500/20 flex items-center gap-1.5 mb-1.5 bg-gold-500/5 rounded-t-xl">
-            <Globe className="w-3.5 h-3.5 text-gold-400 shrink-0" />
-            <span>{headerTitle}</span>
+          {/* Ana Kategoriler Kartı ile Birebir Uyumlu Üst Başlık Şeridi */}
+          <div className="flex items-center justify-between px-2 py-1.5 border-b border-slate-800/80 mb-2 gap-2">
+            <span className="text-[11px] font-bold text-gold-400 uppercase tracking-wider font-mono flex items-center gap-1.5 truncate">
+              <Globe className="w-3.5 h-3.5 text-gold-400 shrink-0" />
+              <span>{headerTitle}</span>
+            </span>
+            <span className="text-[10px] text-slate-400 font-mono font-medium shrink-0 px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800">
+              {activeLanguage.code.toUpperCase()}
+            </span>
           </div>
 
-          <div className="space-y-0.5">
+          {/* Dil Seçenekleri (Ana Kategori Alt Menü Tasarımı İle Birebir Uyumlu) */}
+          <div className="space-y-1">
             {languageList.map((lang) => {
               const isActive = lang.code === currentLang;
               return (
@@ -126,17 +138,23 @@ export const LanguageSwitcher = ({
                     setLanguage(lang.code);
                     setIsOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer text-left border ${
+                  className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer text-left border group/sub ${
                     isActive
                       ? 'bg-gold-500/15 text-gold-300 font-bold border-gold-500/30 shadow-sm'
-                      : 'border-transparent text-slate-200 hover:text-white hover:bg-gold-500/10 hover:border-gold-500/20'
+                      : 'border-transparent text-slate-200 hover:text-gold-400 hover:bg-slate-800/30 hover:border-gold-500/20'
                   }`}
                 >
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-base">{lang.flag}</span>
-                    <span className={isActive ? 'text-gold-200 font-semibold' : 'text-slate-200'}>{lang.name}</span>
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span className="text-base shrink-0">{lang.flag}</span>
+                    <span className={`truncate ${isActive ? 'text-gold-200 font-semibold' : 'text-slate-200 group-hover/sub:text-gold-300'}`}>
+                      {lang.name}
+                    </span>
                   </div>
-                  {isActive && <Check className="w-3.5 h-3.5 text-gold-400 shrink-0" />}
+                  {isActive ? (
+                    <Check className="w-3.5 h-3.5 text-gold-400 shrink-0" />
+                  ) : (
+                    <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover/sub:text-gold-400 group-hover/sub:translate-x-0.5 transition-all shrink-0" />
+                  )}
                 </button>
               );
             })}

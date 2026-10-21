@@ -1,28 +1,23 @@
 import React from 'react';
 
 /**
- * Reusable luxury "C1" Brand Emblem
- * Matches the canonical navbar/main screen design:
- * - Rounded gold-gradient outer border
- * - Dark luxury background (hotel-950)
- * - Gold serif bold "C1" text with tracking
+ * City One Hotel - Gerçek Otel Logosu & Amblem Bileşeni
+ * Orijinal oval madalyon logo, şeffaf arka plan, sıcak altın ışıltı ve
+ * duyarlı boyutlandırma ile Navbar, Modal ve Footer genelinde kullanılır.
  */
-export const LogoEmblem = ({ size = 'md', className = '' }) => {
+export const LogoEmblem = ({ size = 'md', className = '', alt = 'City One Hotel Kayseri' }) => {
   const sizeMap = {
     sm: {
-      outer: 'w-8 h-8 rounded-lg p-0.5 shadow-gold-glow/20',
-      inner: 'rounded-[6px]',
-      text: 'text-sm',
+      container: 'h-8 sm:h-9 w-auto',
+      img: 'h-8 sm:h-9 w-auto',
     },
     md: {
-      outer: 'w-10 h-10 rounded-xl p-0.5 shadow-gold-glow/30',
-      inner: 'rounded-[10px]',
-      text: 'text-lg',
+      container: 'h-10 sm:h-12 w-auto',
+      img: 'h-10 sm:h-12 w-auto',
     },
     lg: {
-      outer: 'w-12 h-12 rounded-xl p-0.5 shadow-gold-glow/40',
-      inner: 'rounded-[10px]',
-      text: 'text-xl',
+      container: 'h-14 sm:h-16 w-auto',
+      img: 'h-14 sm:h-16 w-auto',
     },
   };
 
@@ -30,17 +25,14 @@ export const LogoEmblem = ({ size = 'md', className = '' }) => {
 
   return (
     <div
-      className={`${currentSize.outer} bg-gold-gradient shrink-0 transition-transform group-hover:scale-105 ${className}`}
+      className={`relative inline-flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105 select-none ${currentSize.container} ${className}`}
     >
-      <div
-        className={`w-full h-full bg-hotel-950 ${currentSize.inner} flex items-center justify-center`}
-      >
-        <span
-          className={`font-serif font-bold text-gold-400 ${currentSize.text} tracking-wider select-none leading-none`}
-        >
-          C1
-        </span>
-      </div>
+      <img
+        src="/assets/hotel/logo.png"
+        alt={alt}
+        className={`${currentSize.img} max-w-none object-contain select-none drop-shadow-[0_2px_10px_rgba(217,170,84,0.3)] filter`}
+        loading="eager"
+      />
     </div>
   );
 };

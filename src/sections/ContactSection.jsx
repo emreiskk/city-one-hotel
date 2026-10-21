@@ -20,7 +20,7 @@ export default function ContactSection() {
     currentLang === 'en' ? 'Call' : currentLang === 'de' ? 'Anrufen' : currentLang === 'ru' ? 'Позвонить' : 'Ara'
   );
 
-  const googleMapsUrl = 'https://maps.google.com/?cid=16520117467261954514';
+  const googleMapsUrl = 'https://www.google.com/maps/place/City+One+Hotel/@38.729572,35.474676,17z/data=!3m1!4b1!4m9!3m8!1s0x152b1216503c72b1:0xe541da4fe08169d2!8m2!3d38.729572!4d35.474676!16s%2Fg%2F1tf7w433';
   const openMapsLabel = currentLang === 'en' 
     ? 'Open in Google Maps' 
     : currentLang === 'de' 

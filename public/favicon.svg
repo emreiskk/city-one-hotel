@@ -9,7 +9,7 @@
   <!-- Outer Gold Gradient Frame -->
   <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#goldGrad)" />
   <!-- Inner Dark Luxury Background -->
-  <rect x="5" y="5" width="54" height="54" rx="13" fill="#070C18" />
-  <!-- C1 Serif Typography in Gold -->
-  <text x="32" y="42" font-family="'Playfair Display', Georgia, 'Times New Roman', serif" font-size="28" font-weight="700" fill="#DEB57F" text-anchor="middle" letter-spacing="1">C1</text>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#070C18" />
+  <!-- City One Hotel Official Logo Image -->
+  <image href="/assets/hotel/logo.png" x="6" y="14" width="52" height="36" preserveAspectRatio="xMidYMid meet" />
 </svg>
