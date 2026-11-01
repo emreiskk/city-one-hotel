@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Play, Film, Smartphone } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 
 export const VideoModal = ({ 
@@ -8,9 +8,7 @@ export const VideoModal = ({
   onClose, 
   videoUrl, 
   title, 
-  subtitle,
-  videoTourBadge = 'Video Tur',
-  verticalTourBadge = 'Dikey Tur'
+  subtitle
 }) => {
   const [videoDimensions, setVideoDimensions] = useState({
     width: 0,
@@ -18,40 +16,41 @@ export const VideoModal = ({
     isPortrait: false,
     loaded: false
   });
+  const [prevVideoUrl, setPrevVideoUrl] = useState(videoUrl);
   const videoRef = useRef(null);
 
   useBodyScrollLock(isOpen);
 
-  // Reset dimensions when videoUrl changes or modal opens
-  useEffect(() => {
-    if (isOpen) {
-      setVideoDimensions({
-        width: 0,
-        height: 0,
-        isPortrait: false,
-        loaded: false
-      });
+  // Sync state when videoUrl changes without cascading effect renders
+  if (videoUrl !== prevVideoUrl) {
+    setPrevVideoUrl(videoUrl);
+    setVideoDimensions({
+      width: 0,
+      height: 0,
+      isPortrait: false,
+      loaded: false
+    });
+  }
+
+  // Safely pause video when closing
+  const handleClose = React.useCallback(() => {
+    if (videoRef.current) {
+      videoRef.current.pause();
     }
-  }, [isOpen, videoUrl]);
+    onClose();
+  }, [onClose]);
 
   // Handle escape key
   useEffect(() => {
+    if (!isOpen) return;
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === 'Escape') {
         handleClose();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
-
-  // Safely pause video when closing
-  const handleClose = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
-    onClose();
-  };
+  }, [isOpen, handleClose]);
 
   const handleLoadedMetadata = (e) => {
     const w = e.target.videoWidth || 0;
@@ -72,7 +71,7 @@ export const VideoModal = ({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[130] flex flex-col justify-between bg-black/95 backdrop-blur-md animate-in fade-in duration-200 select-none"
+      className="fixed inset-0 z-[200] flex flex-col justify-between bg-black/95 backdrop-blur-md animate-in fade-in duration-200 select-none"
       onClick={(e) => {
         if (e.target === e.currentTarget) handleClose();
       }}
@@ -80,22 +79,17 @@ export const VideoModal = ({
       aria-modal="true"
       aria-label={title || 'Video Oynatıcı'}
     >
-      {/* Top Bar across full viewport width (PhotoLightboxModal ile %100 aynı görsel dil) */}
+      {/* Top Bar - Clean, Minimalist, Luxury Standard */}
       <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 bg-hotel-950/90 border-b border-slate-800/80 z-20 backdrop-blur-md shrink-0">
-        <div className="flex items-center gap-2.5 text-white min-w-0 pr-3">
-          <div className="w-8 h-8 rounded-lg bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 shrink-0">
-            {isPortrait ? <Smartphone className="w-4 h-4" /> : <Film className="w-4 h-4" />}
-          </div>
-          <div className="min-w-0">
-            <h3 className="font-serif text-sm sm:text-base font-semibold text-white truncate">
-              {title || 'City One Hotel'}
-            </h3>
-            {subtitle && (
-              <p className="text-[11px] text-slate-400 truncate">
-                {subtitle}
-              </p>
-            )}
-          </div>
+        <div className="min-w-0 pr-3">
+          <h3 className="font-serif text-sm sm:text-base font-semibold text-white truncate">
+            {title || 'City One Hotel'}
+          </h3>
+          {subtitle && (
+            <p className="text-xs text-slate-400 truncate font-light mt-0.5">
+              {subtitle}
+            </p>
+          )}
         </div>
 
         <button
@@ -107,7 +101,7 @@ export const VideoModal = ({
         </button>
       </div>
 
-      {/* Main Video Area (Ortalanmış, doğal oranına uygun, altın çerçeveli) */}
+      {/* Main Video Area (Ortalanmış, doğal oranına uygun, lüks çerçeveli) */}
       <div 
         className="relative flex-1 flex items-center justify-center p-3 sm:p-6 overflow-hidden"
         onClick={(e) => {
@@ -129,24 +123,17 @@ export const VideoModal = ({
             onLoadedMetadata={handleLoadedMetadata}
             className={`w-auto h-auto max-w-full ${
               isPortrait 
-                ? 'max-h-[68dvh] sm:max-h-[74dvh] object-contain' 
-                : 'max-h-[65dvh] sm:max-h-[72dvh] object-contain'
+                ? 'max-h-[70dvh] sm:max-h-[76dvh] object-contain' 
+                : 'max-h-[68dvh] sm:max-h-[74dvh] object-contain'
             } mx-auto block`}
           >
             Tarayıcınız video etiketini desteklemiyor.
           </video>
         </div>
       </div>
-
-      {/* Bottom Bar across full viewport width */}
-      <div className="px-4 sm:px-6 py-2.5 sm:py-3 bg-hotel-950/90 border-t border-slate-800/80 flex items-center justify-center sm:justify-start text-xs text-slate-400 shrink-0 z-10">
-        <span className="flex items-center gap-1.5 text-gold-300 text-xs truncate">
-          <Play className="w-3.5 h-3.5 text-gold-400 fill-gold-400 shrink-0" />
-          <span>City One Hotel Kayseri • Canlı Çekim</span>
-        </span>
-      </div>
-
     </div>,
     document.body
   );
 };
+
+export default VideoModal;

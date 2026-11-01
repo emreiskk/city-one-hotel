@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
-import { Card } from '../design-system/Card';
-import { HelpCircle, ChevronDown } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 
 export default function FaqSection() {
   const { content } = useLanguage();
@@ -30,42 +29,33 @@ export default function FaqSection() {
           </Subtitle>
         </div>
 
-        {/* Accordion List */}
-        <div className="space-y-3 sm:space-y-3.5">
+        {/* Editorial Accordion List (Clean Hairline Dividers, No Box Cards) */}
+        <div className="divide-y divide-slate-800/80 border-y border-slate-800/80">
           {faqSection.items.map((item, index) => {
             const isOpen = openIndex === index;
 
             return (
-              <Card
-                key={index}
-                variant="elevated"
-                hover={false}
-                className={`transition-all duration-300 border-slate-800 ${
-                  isOpen ? 'border-gold-500/40 bg-hotel-900' : 'bg-hotel-950/70 hover:border-slate-700'
-                }`}
-              >
+              <div key={index} className="py-1">
                 <button
                   type="button"
                   onClick={() => toggleAccordion(index)}
-                  className="w-full p-4 sm:p-6 text-left flex items-center justify-between gap-3 sm:gap-4 cursor-pointer focus:outline-none"
+                  className="w-full py-4 sm:py-5 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none group"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-serif text-sm sm:text-base lg:text-lg font-semibold text-white">
+                  <span className="font-serif text-base sm:text-lg font-semibold text-white group-hover:text-gold-300 transition-colors">
                     {item.q}
                   </span>
-                  <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                    isOpen ? 'rotate-180 bg-gold-500/20 text-gold-400' : 'bg-slate-800 text-slate-400'
-                  }`}>
-                    <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  </div>
+                  <ChevronDown className={`w-4 h-4 text-gold-400 shrink-0 transition-transform duration-300 ${
+                    isOpen ? 'rotate-180' : ''
+                  }`} />
                 </button>
 
                 {isOpen && (
-                  <div className="px-4 sm:px-6 pb-4 sm:pb-6 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/80 animate-in fade-in duration-200">
+                  <div className="pb-5 pt-1 text-xs sm:text-sm text-slate-400 leading-relaxed animate-in fade-in duration-200">
                     {item.a}
                   </div>
                 )}
-              </Card>
+              </div>
             );
           })}
         </div>

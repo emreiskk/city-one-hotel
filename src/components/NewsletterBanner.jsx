@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { Mail, Send, CheckCircle2 } from 'lucide-react';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
-import { Card } from '../design-system/Card';
 import { Button } from '../design-system/Button';
+import { legalTabs } from '../data/legalDocuments';
 
-export const NewsletterBanner = () => {
-  const { content } = useLanguage();
+export const NewsletterBanner = ({ onOpenLegal }) => {
+  const { currentLang, content } = useLanguage();
   const { newsletter } = content;
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -39,24 +39,20 @@ export const NewsletterBanner = () => {
   if (!newsletter) return null;
 
   return (
-    <Card 
-      variant="elevated" 
-      hover={false} 
-      className="p-5 sm:p-8 mb-8 sm:mb-12 bg-hotel-900 border-slate-800 shadow-xl"
-    >
+    <div className="p-6 sm:p-10 mb-10 sm:mb-14 rounded-2xl bg-hotel-900/40 border border-slate-800/80">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
         
         {/* Left Column: Design System Typography (SectionBadge + Heading + Subtitle) */}
-        <div className="lg:col-span-7 space-y-2.5">
-          <SectionBadge icon={Mail} variant="gold" className="mb-2">
+        <div className="lg:col-span-7 space-y-2">
+          <SectionBadge icon={Mail} className="mb-2">
             {newsletter.badge}
           </SectionBadge>
 
-          <Heading as="h3" size="lg" serif={true} className="leading-snug text-white">
+          <Heading as="h3" size="lg" serif={true} className="leading-snug text-white font-serif">
             {newsletter.title}
           </Heading>
 
-          <Subtitle size="sm" className="text-slate-300 max-w-xl">
+          <Subtitle size="sm" className="text-slate-300 max-w-xl font-light">
             {newsletter.subtitle}
           </Subtitle>
         </div>
@@ -64,19 +60,19 @@ export const NewsletterBanner = () => {
         {/* Right Column: Input & Action */}
         <div className="lg:col-span-5">
           {isSubmitted ? (
-            <div className="p-4 sm:p-5 rounded-xl bg-gold-500/10 border border-gold-500/30 text-gold-200 flex items-start gap-3.5 animate-in fade-in duration-300 shadow-lg">
+            <div className="p-4 sm:p-5 rounded-xl bg-gold-500/10 border border-gold-500/30 text-gold-200 flex items-start gap-3.5 animate-in fade-in duration-300">
               <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-gold-400 shrink-0 mt-0.5" />
               <div>
-                <h4 className="font-serif font-bold text-white text-sm sm:text-base mb-1">
+                <h4 className="font-serif font-medium text-white text-sm sm:text-base mb-1">
                   {newsletter.successTitle}
                 </h4>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-300 leading-relaxed font-light">
                   {newsletter.successMessage}
                 </p>
                 <button
                   type="button"
                   onClick={() => setIsSubmitted(false)}
-                  className="mt-2.5 text-[11px] font-semibold text-gold-400 hover:text-gold-300 underline underline-offset-2 cursor-pointer transition-colors"
+                  className="mt-2 text-xs font-medium text-gold-400 hover:text-gold-300 underline underline-offset-2 cursor-pointer transition-colors"
                 >
                   {newsletter.resetButton || 'Farklı bir e-posta kaydet'}
                 </button>
@@ -95,7 +91,7 @@ export const NewsletterBanner = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={newsletter.placeholder}
-                    className="w-full h-12 pl-10 pr-4 rounded-xl glass-input bg-hotel-950/90 text-white placeholder-slate-400 text-xs sm:text-sm border border-slate-700/80 focus:border-gold-400 focus:ring-1 focus:ring-gold-500/30 transition-all shadow-inner"
+                    className="w-full h-11 pl-10 pr-4 rounded-xl glass-input bg-hotel-950/90 text-white placeholder-slate-400 text-xs sm:text-sm border border-slate-700/80 focus:border-gold-400 focus:ring-1 focus:ring-gold-500/30 transition-all"
                   />
                 </div>
 
@@ -106,17 +102,32 @@ export const NewsletterBanner = () => {
                   icon={Send}
                   iconPosition="right"
                   disabled={isLoading}
-                  className="h-12 px-6 rounded-xl whitespace-nowrap shadow-gold-glow/20 flex items-center justify-center font-semibold text-xs sm:text-sm shrink-0"
+                  className="h-11 px-5 rounded-xl whitespace-nowrap flex items-center justify-center font-medium text-xs sm:text-sm shrink-0"
                 >
                   {isLoading ? '...' : newsletter.button}
                 </Button>
               </div>
             </form>
           )}
+
+          {newsletter.privacyNotice && (
+            <p className="mt-3 text-[11px] text-slate-400 leading-relaxed font-light">
+              {newsletter.privacyNotice}{' '}
+              {onOpenLegal && (
+                <button
+                  type="button"
+                  onClick={() => onOpenLegal('aydinlatma')}
+                  className="text-gold-400 hover:text-gold-300 underline underline-offset-2 cursor-pointer font-medium ml-1 inline-flex items-center"
+                >
+                  ({legalTabs.find(t => t.id === 'aydinlatma')?.[currentLang] || 'KVKK'})
+                </button>
+              )}
+            </p>
+          )}
         </div>
 
       </div>
 
-    </Card>
+    </div>
   );
 };

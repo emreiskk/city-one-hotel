@@ -39,15 +39,15 @@ export default {
         sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        'luxury': '0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 25px 0 rgba(191, 132, 49, 0.15)',
-        'gold-glow': '0 0 30px rgba(191, 132, 49, 0.35)',
-        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.3)',
+        'luxury': '0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 1px 1px rgba(255, 255, 255, 0.05)',
+        'gold-glow': '0 8px 20px -4px rgba(191, 132, 49, 0.12)',
+        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.5)',
       },
       backgroundImage: {
-        'gold-gradient': 'linear-gradient(135deg, #CF9C55 0%, #BF8431 50%, #945F1B 100%)',
-        'gold-gradient-hover': 'linear-gradient(135deg, #DEB57F 0%, #CF9C55 50%, #A36C22 100%)',
-        'dark-glass': 'linear-gradient(135deg, rgba(21, 31, 50, 0.75) 0%, rgba(15, 23, 42, 0.85) 100%)',
-        'hero-overlay': 'linear-gradient(to bottom, rgba(7, 12, 24, 0.5) 0%, rgba(7, 12, 24, 0.85) 75%, rgba(7, 12, 24, 1) 100%)',
+        'gold-gradient': 'linear-gradient(135deg, #CF9C55 0%, #BF8431 100%)',
+        'gold-gradient-hover': 'linear-gradient(135deg, #DEB57F 0%, #CF9C55 100%)',
+        'dark-glass': 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(7, 12, 24, 0.95) 100%)',
+        'hero-overlay': 'linear-gradient(to bottom, rgba(7, 12, 24, 0.35) 0%, rgba(7, 12, 24, 0.75) 70%, rgba(7, 12, 24, 1) 100%)',
       }
     },
   },

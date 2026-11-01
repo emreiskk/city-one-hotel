@@ -1,4 +1,5 @@
 import React, { useState, lazy, Suspense } from 'react';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './sections/HeroSection';
 import { BookingBar } from './sections/BookingBar';
@@ -6,8 +7,9 @@ import { FeaturesSection } from './sections/FeaturesSection';
 import { FooterSection } from './sections/FooterSection';
 import { FloatingActions } from './components/FloatingActions';
 import { BookingModal } from './components/BookingModal';
+import { LegalModal } from './components/LegalModal';
 import { SectionSkeleton } from './components/SectionSkeleton';
-import { LanguageProvider, useLanguage } from './context/LanguageContext';
+import { LanguageProvider } from './context/LanguageContext';
 
 // Dağıtık Yükleme (Code-Splitting) - Core Web Vitals Optimizasyonu
 const RoomsSection = lazy(() => import('./sections/RoomsSection'));
@@ -20,35 +22,59 @@ const ReviewsSection = lazy(() => import('./sections/ReviewsSection'));
 const FaqSection = lazy(() => import('./sections/FaqSection'));
 const ContactSection = lazy(() => import('./sections/ContactSection'));
 
-function MainApp() {
-  const { content } = useLanguage();
-  const { roomsSection } = content;
+// Varsayılan rezervasyon tarihleri yardımcı fonksiyonu
+const formatDate = (date) => date.toISOString().split('T')[0];
 
-  // Varsayılan rezervasyon tarihleri
+const getInitialBookingDates = () => {
   const today = new Date();
   const defaultCheckIn = new Date(today);
   defaultCheckIn.setDate(today.getDate() + 1);
   const defaultCheckOut = new Date(today);
   defaultCheckOut.setDate(today.getDate() + 3);
-
-  const formatDate = (date) => date.toISOString().split('T')[0];
-
-  // Merkezi Rezervasyon Motoru State'i
-  const [bookingState, setBookingState] = useState({
+  return {
     checkIn: formatDate(defaultCheckIn),
-    checkOut: formatDate(defaultCheckOut),
-    adults: 2,
-    children: 0,
-    roomId: roomsSection.rooms[0].id
+    checkOut: formatDate(defaultCheckOut)
+  };
+};
+
+function MainApp() {
+  // Merkezi Rezervasyon Motoru State'i
+  const [bookingState, setBookingState] = useState(() => {
+    const dates = getInitialBookingDates();
+    return {
+      checkIn: dates.checkIn,
+      checkOut: dates.checkOut,
+      adults: 2,
+      children: 0,
+      roomId: null
+    };
   });
 
   const [isBookingOpen, setIsBookingOpen] = useState(false);
 
-  // Genel Rezervasyon Açma
+  // Merkezi Yasal Bilgilendirme & KVKK Modal State'i
+  const [legalModalState, setLegalModalState] = useState({
+    isOpen: false,
+    tab: 'aydinlatma'
+  });
+
+  const handleOpenLegal = (tab = 'aydinlatma') => {
+    setLegalModalState({
+      isOpen: true,
+      tab
+    });
+  };
+
+  const handleCloseLegal = () => {
+    setLegalModalState((prev) => ({
+      ...prev,
+      isOpen: false
+    }));
+  };
+
+  // Genel Rezervasyon Açma (Navbar veya Hero)
   const handleOpenBooking = (roomId = null) => {
-    if (roomId) {
-      setBookingState((prev) => ({ ...prev, roomId }));
-    }
+    setBookingState((prev) => ({ ...prev, roomId }));
     setIsBookingOpen(true);
   };
 
@@ -125,21 +151,34 @@ function MainApp() {
 
         {/* LAZY: Google Harita & İletişim / Rezervasyon Hattı */}
         <Suspense fallback={<SectionSkeleton height="h-[550px]" />}>
-          <ContactSection />
+          <ContactSection onOpenLegal={handleOpenLegal} />
         </Suspense>
       </main>
 
       {/* Footer */}
-      <FooterSection onOpenBooking={handleOpenBooking} />
+      <FooterSection 
+        onOpenBooking={handleOpenBooking} 
+        onOpenLegal={handleOpenLegal}
+      />
 
       {/* Sabit Yeşil WhatsApp & Hızlı Arama Butonları */}
       <FloatingActions />
 
-      {/* Dinamik Fiyat Hesaplamalı Rezervasyon Modal Simülasyonu */}
-      <BookingModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-        initialData={bookingState}
+      {/* Merkezi Lüks Rezervasyon Motoru Modalı */}
+      {isBookingOpen && (
+        <BookingModal
+          isOpen={isBookingOpen}
+          onClose={() => setIsBookingOpen(false)}
+          initialData={bookingState}
+          onOpenLegal={handleOpenLegal}
+        />
+      )}
+
+      {/* 4 Dilli KVKK & Yasal Bilgilendirme Modalı */}
+      <LegalModal
+        isOpen={legalModalState.isOpen}
+        initialTab={legalModalState.tab}
+        onClose={handleCloseLegal}
       />
 
     </div>
@@ -148,8 +187,10 @@ function MainApp() {
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <MainApp />
-    </LanguageProvider>
+    <ErrorBoundary>
+      <LanguageProvider>
+        <MainApp />
+      </LanguageProvider>
+    </ErrorBoundary>
   );
 }

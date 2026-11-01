@@ -1,0 +1,21 @@
+# ==============================================================================
+# City One Hotel Kayseri - Robots Configuration
+# https://www.cityonekayseri.com/
+# ==============================================================================
+
+# 1. Genel Arama Motoru Kuralları (Google, Bing, Applebot, DuckDuckGo vb.)
+User-agent: *
+Allow: /
+
+# Reklam & analitik parametrelerinin mükerrer (duplicate) indekslenmesini engelle
+Disallow: /*?*fbclid=
+Disallow: /*?*gclid=
+Disallow: /*?*utm_*
+
+# 2. Yandex Arama Motoru Özel Yapılandırması (Erciyes Kayak Turizmi / BDT Bölgesi)
+User-agent: Yandex
+Allow: /
+
+# 3. Resmi Site Haritası Konumu
+Sitemap: https://www.cityonekayseri.com/sitemap.xml
+

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { X, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useBodyScrollLock } from '../hooks/useBodyScrollLock';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -15,9 +15,22 @@ export const PhotoLightboxModal = ({
   const { currentLang } = useLanguage();
   useBodyScrollLock(isOpen);
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [prevInitialIndex, setPrevInitialIndex] = useState(initialIndex);
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
   const thumbnailContainerRef = useRef(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+
+  if (isOpen !== prevIsOpen) {
+    setPrevIsOpen(isOpen);
+    if (isOpen) {
+      setCurrentIndex(initialIndex);
+      setPrevInitialIndex(initialIndex);
+    }
+  } else if (initialIndex !== prevInitialIndex) {
+    setPrevInitialIndex(initialIndex);
+    setCurrentIndex(initialIndex);
+  }
 
   const defaultTitles = {
     tr: 'Fotoğraf Galerisi',
@@ -41,11 +54,15 @@ export const PhotoLightboxModal = ({
     });
   }, [items, images, effectiveTitle]);
 
-  useEffect(() => {
-    if (isOpen) {
-      setCurrentIndex(initialIndex);
-    }
-  }, [isOpen, initialIndex]);
+  const handleNext = React.useCallback(() => {
+    if (!photoList.length) return;
+    setCurrentIndex((prev) => (prev + 1) % photoList.length);
+  }, [photoList.length]);
+
+  const handlePrev = React.useCallback(() => {
+    if (!photoList.length) return;
+    setCurrentIndex((prev) => (prev - 1 + photoList.length) % photoList.length);
+  }, [photoList.length]);
 
   // Keep active thumbnail in view
   useEffect(() => {
@@ -66,17 +83,7 @@ export const PhotoLightboxModal = ({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, currentIndex, photoList.length]);
-
-  if (!isOpen || !photoList.length) return null;
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % photoList.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + photoList.length) % photoList.length);
-  };
+  }, [isOpen, handleNext, handlePrev, onClose]);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.changedTouches[0].clientX;
@@ -94,14 +101,17 @@ export const PhotoLightboxModal = ({
     }
   };
 
-  const currentItem = photoList[currentIndex] || {};
-  const currentSrc = currentItem.src || (typeof images[currentIndex] === 'string' ? images[currentIndex] : '');
+  if (!isOpen || !photoList.length) return null;
+
+  const safeIndex = (currentIndex >= 0 && currentIndex < photoList.length) ? currentIndex : 0;
+  const currentItem = photoList[safeIndex] || {};
+  const currentSrc = currentItem.src || (typeof images[safeIndex] === 'string' ? images[safeIndex] : '');
   const currentTitle = currentItem.title || title;
   const currentSubtitle = currentItem.subtitle || '';
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[130] flex flex-col justify-between bg-black/95 backdrop-blur-md animate-in fade-in duration-200 select-none"
+      className="fixed inset-0 z-[200] flex flex-col justify-between bg-black/95 backdrop-blur-md animate-in fade-in duration-200 select-none"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -111,25 +121,20 @@ export const PhotoLightboxModal = ({
     >
       {/* Top Bar across full viewport width */}
       <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 bg-hotel-950/90 border-b border-slate-800/80 z-20 backdrop-blur-md shrink-0">
-        <div className="flex items-center gap-2.5 text-white min-w-0 pr-3">
-          <div className="w-8 h-8 rounded-lg bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 shrink-0">
-            <ImageIcon className="w-4 h-4" />
+        <div className="min-w-0 pr-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <h3 className="font-serif text-sm sm:text-base font-semibold text-white truncate">
+              {currentTitle}
+            </h3>
+            <span className="text-xs text-gold-400 font-mono shrink-0 font-medium">
+              {safeIndex + 1} / {photoList.length}
+            </span>
           </div>
-          <div className="min-w-0">
-            <div className="flex items-center gap-2 min-w-0">
-              <h3 className="font-serif text-sm sm:text-base font-semibold text-white truncate">
-                {currentTitle}
-              </h3>
-              <span className="text-xs text-gold-400/90 font-mono shrink-0 font-medium">
-                ({currentIndex + 1} / {photoList.length})
-              </span>
-            </div>
-            {currentSubtitle && (
-              <p className="text-[11px] text-slate-400 truncate">
-                {currentSubtitle}
-              </p>
-            )}
-          </div>
+          {currentSubtitle && (
+            <p className="text-xs text-slate-400 truncate font-light mt-0.5">
+              {currentSubtitle}
+            </p>
+          )}
         </div>
 
         <button
@@ -164,7 +169,7 @@ export const PhotoLightboxModal = ({
           <img
             key={currentSrc}
             src={currentSrc}
-            alt={`${currentTitle} - ${currentIndex + 1}`}
+            alt={`${currentTitle} - ${safeIndex + 1}`}
             className="max-h-[72vh] sm:max-h-[75vh] w-auto max-w-full object-contain rounded-2xl border border-gold-500/20 shadow-2xl transition-all duration-300 select-none animate-in fade-in"
           />
         </div>
@@ -192,8 +197,8 @@ export const PhotoLightboxModal = ({
               onClick={() => setCurrentIndex(idx)}
               title={item.title || `Fotoğraf ${idx + 1}`}
               className={`shrink-0 w-14 h-10 sm:w-16 sm:h-12 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
-                idx === currentIndex
-                  ? 'border-gold-400 scale-105 shadow-gold-glow/50 opacity-100 ring-2 ring-gold-500/30'
+                idx === safeIndex
+                  ? 'border-gold-400 scale-105 opacity-100 ring-2 ring-gold-500/40'
                   : 'border-transparent opacity-50 hover:opacity-100 hover:border-slate-600'
               }`}
             >

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
-import { Card } from '../design-system/Card';
 import { Button } from '../design-system/Button';
-import { Utensils, Coffee, ChefHat, Users, Maximize2, Camera, Clock } from 'lucide-react';
+import { Utensils, Coffee, ChefHat, Users, Maximize2, Camera } from 'lucide-react';
 import { PhotoLightboxModal } from '../components/PhotoLightboxModal';
 
 export default function DiningSection({ onOpenBooking }) {
@@ -52,12 +51,12 @@ export default function DiningSection({ onOpenBooking }) {
   };
 
   return (
-    <section id="dining" className="py-14 sm:py-20 lg:py-28 bg-hotel-900/40 relative border-t border-slate-800">
+    <section id="dining" className="py-16 sm:py-24 lg:py-32 bg-hotel-950 relative border-t border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-          <SectionBadge icon={Utensils} className="mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <SectionBadge icon={Utensils} className="mb-3">
             {diningSection.sectionBadge}
           </SectionBadge>
           <Heading as="h2" size="2xl" className="mb-4">
@@ -66,137 +65,136 @@ export default function DiningSection({ onOpenBooking }) {
           <Subtitle size="lg" className="mx-auto text-slate-300">
             {diningSection.subtitle}
           </Subtitle>
-
         </div>
 
-        {/* Gallery Mode Filter Tabs - Mobilde yan yana yatay kaydırma, webde ortalı yan yana */}
-        <div className="flex items-center gap-2 sm:gap-2.5 mb-8 overflow-x-auto no-scrollbar py-1 px-1 -mx-4 px-4 sm:mx-0 sm:justify-center sm:flex-wrap">
+        {/* Quiet Luxury Navigation Tabs */}
+        <div className="flex items-center justify-start sm:justify-center gap-2 mb-10 overflow-x-auto no-scrollbar py-1">
           <button
             onClick={() => handleModeChange('breakfast')}
-            className={`px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 ${
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 ${
               activeTab === 'breakfast'
-                ? 'bg-gold-gradient text-white font-semibold shadow-lg shadow-gold-500/25 border border-gold-400/40'
-                : 'bg-hotel-900/90 text-slate-300 border border-slate-800/90 hover:border-gold-500/40 hover:text-white'
+                ? 'bg-gold-500/10 text-gold-300 border border-gold-400/30'
+                : 'text-slate-400 hover:text-slate-200 border border-transparent'
             }`}
           >
-            <Coffee className="w-3.5 h-3.5 shrink-0" />
+            <Coffee className="w-3.5 h-3.5 text-gold-400/80 shrink-0" />
             <span>{diningSection.tabBreakfast || 'Açık Büfe Kahvaltı'} (12)</span>
           </button>
 
           <button
             onClick={() => handleModeChange('sini')}
-            className={`px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 ${
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 ${
               activeTab === 'sini'
-                ? 'bg-gold-gradient text-white font-semibold shadow-lg shadow-gold-500/25 border border-gold-400/40'
-                : 'bg-hotel-900/90 text-slate-300 border border-slate-800/90 hover:border-gold-500/40 hover:text-white'
+                ? 'bg-gold-500/10 text-gold-300 border border-gold-400/30'
+                : 'text-slate-400 hover:text-slate-200 border border-transparent'
             }`}
           >
-            <Users className="w-3.5 h-3.5 shrink-0" />
+            <Users className="w-3.5 h-3.5 text-gold-400/80 shrink-0" />
             <span>{diningSection.tabSini || 'Sini Restaurant'} (750)</span>
           </button>
 
           <button
             onClick={() => handleModeChange('alacarte')}
-            className={`px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 ${
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer flex items-center gap-2 whitespace-nowrap shrink-0 ${
               activeTab === 'alacarte'
-                ? 'bg-gold-gradient text-white font-semibold shadow-lg shadow-gold-500/25 border border-gold-400/40'
-                : 'bg-hotel-900/90 text-slate-300 border border-slate-800/90 hover:border-gold-500/40 hover:text-white'
+                ? 'bg-gold-500/10 text-gold-300 border border-gold-400/30'
+                : 'text-slate-400 hover:text-slate-200 border border-transparent'
             }`}
           >
-            <ChefHat className="w-3.5 h-3.5 shrink-0" />
+            <ChefHat className="w-3.5 h-3.5 text-gold-400/80 shrink-0" />
             <span>{diningSection.tabAlacarte || 'A La Carte Restoran'} (5)</span>
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
           
-          {/* Visual Showcase with Interactive Carousel / Thumbnails */}
+          {/* Visual Showcase with Discreet Editorial Overlay */}
           <div className="lg:col-span-6 flex flex-col justify-between">
-            <div 
-              className="relative rounded-2xl overflow-hidden aspect-[4/3] w-full shadow-2xl border border-slate-700/80 group cursor-pointer bg-slate-900"
-              onClick={handleOpenLightbox}
-            >
-              <img
-                src={currentPhoto}
-                alt={currentMode.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-hotel-950/80 via-transparent to-transparent" />
-              
-              {/* Top Bar Badges (Collision-proof flex container) */}
-              <div className="absolute top-2.5 inset-x-2.5 flex items-center justify-between gap-1.5 z-10 pointer-events-none">
-                <div className="px-2.5 py-1 rounded-full text-[10px] sm:text-xs bg-hotel-950/90 backdrop-blur-md text-slate-200 border border-white/10 flex items-center gap-1 shadow-sm shrink-0">
-                  <Camera className="w-3.5 h-3.5 text-gold-400 shrink-0" />
-                  <span>{activePhotoIdx + 1} / {currentMode.images.length}</span>
+            <div>
+              <div 
+                className="relative rounded-2xl overflow-hidden aspect-[4/3] w-full border border-slate-800/80 group cursor-pointer bg-slate-900"
+                onClick={handleOpenLightbox}
+              >
+                <img
+                  src={currentPhoto}
+                  alt={currentMode.title}
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-hotel-950/90 via-transparent to-transparent pointer-events-none" />
+                
+                {/* Discreet Image Badges */}
+                <div className="absolute top-3 inset-x-3 flex items-center justify-between gap-2 z-10 pointer-events-none">
+                  <div className="px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-slate-300 text-[11px] font-medium tracking-wide flex items-center gap-1.5 border border-white/5">
+                    <Camera className="w-3 h-3 text-gold-400" />
+                    <span>{activePhotoIdx + 1} / {currentMode.images.length}</span>
+                  </div>
+
+                  <div className="px-2.5 py-1 rounded bg-black/60 backdrop-blur-md text-gold-400 text-[11px] font-medium flex items-center gap-1.5 border border-white/5">
+                    <Maximize2 className="w-3 h-3" />
+                    <span>{content.gallerySection?.zoomLabel || 'Büyüt'}</span>
+                  </div>
                 </div>
 
-                <div className="px-2.5 py-1 rounded-full text-[10px] sm:text-xs bg-hotel-950/90 backdrop-blur-md text-gold-300 border border-gold-500/25 flex items-center gap-1.5 shadow-sm shrink-0">
-                  <Maximize2 className="w-3.5 h-3.5 shrink-0" /> {content.gallerySection?.zoomLabel || 'Büyüt'}
+                {/* Editorial Caption Bar */}
+                <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-hotel-950/80 backdrop-blur-md border border-slate-800/80 flex items-center gap-3.5">
+                  <ChefHat className="w-6 h-6 text-gold-400 shrink-0" />
+                  <div className="min-w-0">
+                    <span className="text-sm font-serif font-medium text-white block truncate">{currentMode.title}</span>
+                    <span className="text-xs text-slate-300 block truncate font-light">{currentMode.subtitle}</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Bottom Info Bar */}
-              <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-3 sm:p-4 rounded-xl bg-hotel-950/85 backdrop-blur-md border border-white/10 flex items-center gap-3">
-                <ChefHat className="w-7 h-7 sm:w-8 sm:h-8 text-gold-400 shrink-0" />
-                <div>
-                  <span className="text-xs font-bold text-white block">{currentMode.title}</span>
-                  <span className="text-[11px] text-slate-300">{currentMode.subtitle}</span>
+              {/* Minimalist Thumbnail Bar */}
+              {currentMode.images.length > 1 && (
+                <div className="mt-3 flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+                  {currentMode.images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActivePhotoIdx(idx)}
+                      className={`shrink-0 w-16 h-12 rounded-lg overflow-hidden border transition-all cursor-pointer ${
+                        idx === activePhotoIdx
+                          ? 'border-gold-400 ring-1 ring-gold-400/50'
+                          : 'border-slate-800 opacity-50 hover:opacity-100'
+                      }`}
+                    >
+                      <img
+                        src={img}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
                 </div>
-              </div>
+              )}
             </div>
-
-            {/* Thumbnail Navigation Strip */}
-            {currentMode.images.length > 1 && (
-              <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1">
-                {currentMode.images.map((img, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setActivePhotoIdx(idx)}
-                    className={`shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
-                      idx === activePhotoIdx
-                        ? 'border-gold-400 scale-105 shadow-gold-glow/40'
-                        : 'border-transparent opacity-50 hover:opacity-100'
-                    }`}
-                  >
-                    <img
-                      src={img}
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
-          {/* Features Column */}
-          <div className="lg:col-span-6 flex flex-col justify-between space-y-3 sm:space-y-4 h-full">
-            {diningSection.features.map((feature, idx) => (
-              <Card
-                key={idx}
-                variant="elevated"
-                hover={true}
-                className="p-3.5 sm:p-5 border-slate-800 hover:border-gold-500/40"
-              >
-                <div className="flex items-start gap-3 sm:gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 shrink-0">
-                    {idx === 0 ? <Users className="w-5 h-5" /> : idx === 1 ? <Coffee className="w-5 h-5" /> : <ChefHat className="w-5 h-5" />}
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-base sm:text-lg font-bold text-white mb-1">
-                      {feature.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                      {feature.desc}
-                    </p>
+          {/* Features Column: Single Architectural Dossier */}
+          <div className="lg:col-span-6 flex flex-col justify-between h-full">
+            <div className="rounded-2xl bg-hotel-900/40 border border-slate-800/80 divide-y divide-slate-800/80">
+              {diningSection.features.map((feature, idx) => (
+                <div key={idx} className="p-5 sm:p-6 transition-colors duration-200 hover:bg-hotel-900/60">
+                  <div className="flex items-start gap-4">
+                    <div className="font-serif text-gold-400/90 text-sm font-medium tracking-widest mt-0.5 shrink-0">
+                      0{idx + 1}
+                    </div>
+                    <div>
+                      <h3 className="font-serif text-base sm:text-lg font-medium text-white mb-1.5">
+                        {feature.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                        {feature.desc}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </Card>
-            ))}
+              ))}
+            </div>
 
-            <div className="pt-4 flex flex-col sm:flex-row gap-4">
+            <div className="pt-6 flex flex-col sm:flex-row gap-3">
               <Button
                 variant="gold"
                 size="md"

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- ==================================================================== -->
+  <!-- 1. Ana Sayfa (Homepage) - Çok Dilli (TR, EN, DE, RU)                 -->
+  <!-- ==================================================================== -->
+  <url>
+    <loc>https://www.cityonekayseri.com/</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.cityonekayseri.com/?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cityonekayseri.com/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.cityonekayseri.com/?lang=de" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.cityonekayseri.com/?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cityonekayseri.com/" />
+    <image:image>
+      <image:loc>https://www.cityonekayseri.com/assets/hotel/exterior/hero-aerial.jpg</image:loc>
+      <image:title>City One Hotel Kayseri - 4 Yıldızlı Lüks Otel &amp; SPA</image:title>
+      <image:caption>Erciyes manzarası ve Kayseri şehir merkezi konumuyla City One Hotel</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ==================================================================== -->
+  <!-- 2. Odalar & Süitler (Rooms & Suites)                                 -->
+  <!-- ==================================================================== -->
+  <url>
+    <loc>https://www.cityonekayseri.com/#rooms</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.cityonekayseri.com/?lang=tr#rooms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cityonekayseri.com/?lang=en#rooms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.cityonekayseri.com/?lang=de#rooms" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.cityonekayseri.com/?lang=ru#rooms" />
+    <image:image>
+      <image:loc>https://www.cityonekayseri.com/assets/hotel/rooms/superior-1.jpg</image:loc>
+      <image:title>City One Hotel Superior Konfor Oda</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.cityonekayseri.com/assets/hotel/rooms/standart-1.jpg</image:loc>
+      <image:title>City One Hotel Standart Şehir Manzaralı Oda</image:title>
+    </image:image>
+  </url>
+
+  <!-- ==================================================================== -->
+  <!-- 3. Erciyes Kayak Transferi & Kış Turizmi                            -->
+  <!-- ==================================================================== -->
+  <url>
+    <loc>https://www.cityonekayseri.com/#ski</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.cityonekayseri.com/?lang=tr#ski" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cityonekayseri.com/?lang=en#ski" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.cityonekayseri.com/?lang=de#ski" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.cityonekayseri.com/?lang=ru#ski" />
+  </url>
+
+  <!-- ==================================================================== -->
+  <!-- 4. 1500 m² Termal SPA & Kapalı Havuz                                 -->
+  <!-- ==================================================================== -->
+  <url>
+    <loc>https://www.cityonekayseri.com/#spa</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.cityonekayseri.com/?lang=tr#spa" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cityonekayseri.com/?lang=en#spa" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.cityonekayseri.com/?lang=de#spa" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.cityonekayseri.com/?lang=ru#spa" />
+    <image:image>
+      <image:loc>https://www.cityonekayseri.com/assets/hotel/spa/havuz-1.jpg</image:loc>
+      <image:title>City One Hotel Yarı Olimpik Kapalı Havuz</image:title>
+    </image:image>
+  </url>
+
+  <!-- ==================================================================== -->
+  <!-- 5. Toplantı, Kongre & Balo Salonları                                 -->
+  <!-- ==================================================================== -->
+  <url>
+    <loc>https://www.cityonekayseri.com/#meetings</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.cityonekayseri.com/?lang=tr#meetings" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cityonekayseri.com/?lang=en#meetings" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.cityonekayseri.com/?lang=de#meetings" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.cityonekayseri.com/?lang=ru#meetings" />
+    <image:image>
+      <image:loc>https://www.cityonekayseri.com/assets/hotel/halls/kayseri/kayseri-1.jpg</image:loc>
+      <image:title>City One Hotel Kayseri Balo Salonu (500 Kişi)</image:title>
+    </image:image>
+  </url>
+
+  <!-- ==================================================================== -->
+  <!-- 6. Gastronomi & Sini Restaurant (750 Kişi)                           -->
+  <!-- ==================================================================== -->
+  <url>
+    <loc>https://www.cityonekayseri.com/#dining</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.cityonekayseri.com/?lang=tr#dining" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cityonekayseri.com/?lang=en#dining" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.cityonekayseri.com/?lang=de#dining" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.cityonekayseri.com/?lang=ru#dining" />
+    <image:image>
+      <image:loc>https://www.cityonekayseri.com/assets/hotel/dining/sini-restaurant-750.jpg</image:loc>
+      <image:title>City One Hotel Sini Restaurant 750 Kişilik Ziyafet Salonu</image:title>
+    </image:image>
+  </url>
+
+  <!-- ==================================================================== -->
+  <!-- 7. Fotoğraf & Video Galerisi                                         -->
+  <!-- ==================================================================== -->
+  <url>
+    <loc>https://www.cityonekayseri.com/#gallery</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.cityonekayseri.com/?lang=tr#gallery" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cityonekayseri.com/?lang=en#gallery" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.cityonekayseri.com/?lang=de#gallery" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.cityonekayseri.com/?lang=ru#gallery" />
+  </url>
+
+  <!-- ==================================================================== -->
+  <!-- 8. İletişim, Konum & Yol Tarifi                                      -->
+  <!-- ==================================================================== -->
+  <url>
+    <loc>https://www.cityonekayseri.com/#contact</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.cityonekayseri.com/?lang=tr#contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.cityonekayseri.com/?lang=en#contact" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.cityonekayseri.com/?lang=de#contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.cityonekayseri.com/?lang=ru#contact" />
+  </url>
+
+</urlset>
+

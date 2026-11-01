@@ -1,25 +1,24 @@
 import React from 'react';
 
 /**
- * SectionBadge: Zarif, lüks bölme rozeti (üst başlık)
+ * SectionBadge: Lüks editoryal üst başlık (Eyebrow/Kicker) - Kutusuz, asil tipografi
  */
 export const SectionBadge = ({ 
   children, 
   variant = 'gold', 
   className = '',
-  icon: Icon = null
+  icon: _Icon = null
 }) => {
-  const variantStyles = {
-    gold: 'border-gold-500/30 bg-gold-500/10 text-gold-300 shadow-sm',
-    dark: 'border-slate-700 bg-hotel-900/80 text-slate-300',
-    white: 'border-white/20 bg-white/10 text-white'
+  const variantColors = {
+    gold: 'text-gold-400',
+    dark: 'text-slate-400',
+    white: 'text-slate-200'
   };
 
   return (
-    <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-semibold tracking-widest uppercase backdrop-blur-md ${variantStyles[variant] || variantStyles.gold} ${className}`}>
-      {Icon && <Icon className="w-3.5 h-3.5 text-gold-400 shrink-0" />}
-      <span>{children}</span>
-    </div>
+    <p className={`text-xs font-semibold tracking-[0.25em] uppercase ${variantColors[variant] || 'text-gold-400'} ${className}`}>
+      {children}
+    </p>
   );
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
-import { Card } from '../design-system/Card';
 import { 
   MountainSnow, 
   Waves, 
@@ -10,8 +9,7 @@ import {
   Compass, 
   ShieldCheck,
   Dumbbell,
-  Coffee,
-  Gem
+  Coffee
 } from 'lucide-react';
 
 const iconMap = {
@@ -30,16 +28,12 @@ export const FeaturesSection = () => {
   const { keyFeatures, hotel } = content;
 
   return (
-    <section className="py-14 sm:py-20 lg:py-28 relative overflow-hidden bg-hotel-950">
-      
-      {/* Background Subtle Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gold-500/5 blur-[140px] pointer-events-none rounded-full" />
-
+    <section className="py-16 sm:py-24 lg:py-32 relative bg-hotel-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
-          <SectionBadge icon={Gem} className="mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
+          <SectionBadge className="mb-3">
             {keyFeatures.sectionBadge}
           </SectionBadge>
           <Heading as="h2" size="2xl" className="mb-4">
@@ -50,47 +44,43 @@ export const FeaturesSection = () => {
           </Subtitle>
         </div>
 
-        {/* Features 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-          {keyFeatures.items.map((item) => {
+        {/* Features 3-Column Editorial Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+          {keyFeatures.items.map((item, idx) => {
             const IconComponent = iconMap[item.icon] || Waves;
 
             return (
-              <Card
+              <article
                 key={item.id}
-                variant="glassmorphism"
-                hover={true}
-                className="p-5 sm:p-7 flex flex-col justify-between group border-slate-800/80 hover:border-gold-500/40"
+                className="flex flex-col justify-between p-6 sm:p-8 rounded-2xl bg-hotel-900/40 border border-slate-800/60 hover:border-slate-700/80 transition-colors"
               >
                 <div>
-                  {/* Top Badge & Icon */}
-                  <div className="flex items-center justify-between mb-4 sm:mb-6">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 group-hover:scale-110 group-hover:bg-gold-500/20 transition-all duration-300">
-                      <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
-                    </div>
-                    <span className="text-[11px] font-semibold text-gold-400 uppercase tracking-wider px-2.5 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 truncate max-w-[190px] sm:max-w-none shrink-0">
+                  {/* Elegant Serif Number & Refined Highlight Tag */}
+                  <div className="flex items-center justify-between pb-5 mb-5 border-b border-slate-800/60">
+                    <span className="font-serif text-2xl font-normal text-gold-400/90 tracking-widest">
+                      0{idx + 1}
+                    </span>
+                    <span className="text-[11px] font-semibold text-slate-400 tracking-wider uppercase">
                       {item.highlight}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-serif text-base sm:text-lg lg:text-xl font-bold text-white mb-2 sm:mb-3 group-hover:text-gold-300 transition-colors">
+                  <h3 className="font-serif text-lg sm:text-xl font-bold text-white mb-2.5">
                     {item.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-sm text-slate-300/80 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-800/60 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-400 group-hover:text-gold-400 transition-colors">
-                    {hotel.name}
-                  </span>
-                  <div className="w-6 h-0.5 bg-slate-800 group-hover:bg-gold-400 transition-colors rounded-full" />
+                <div className="mt-8 pt-4 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-500">
+                  <span className="font-medium text-slate-400">{hotel.name}</span>
+                  <IconComponent className="w-4 h-4 text-gold-400/70" />
                 </div>
-              </Card>
+              </article>
             );
           })}
         </div>

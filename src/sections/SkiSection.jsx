@@ -2,8 +2,7 @@ import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
 import { Button } from '../design-system/Button';
-import { Card } from '../design-system/Card';
-import { MountainSnow, Calendar, Clock, Compass, ShieldCheck } from 'lucide-react';
+import { Calendar, Clock, Compass, ShieldCheck, MountainSnow } from 'lucide-react';
 
 export default function SkiSection({ onOpenBooking }) {
   const { content } = useLanguage();
@@ -63,30 +62,28 @@ export default function SkiSection({ onOpenBooking }) {
             </div>
           </div>
 
-          {/* Advantages Cards */}
-          <div className="lg:col-span-6 flex flex-col justify-between space-y-3 sm:space-y-4 h-full">
-            {skiSection.advantages.map((adv, idx) => (
-              <Card
-                key={idx}
-                variant="elevated"
-                hover={true}
-                className="p-3.5 sm:p-5 border-slate-800 hover:border-gold-500/40"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 shrink-0 font-serif font-bold text-sm">
+          {/* Advantages List */}
+          <div className="lg:col-span-6 flex flex-col justify-between space-y-4 h-full">
+            <div className="space-y-4">
+              {skiSection.advantages.map((adv, idx) => (
+                <article
+                  key={idx}
+                  className="p-5 sm:p-6 rounded-2xl bg-hotel-900/40 border border-slate-800/80 hover:border-slate-700/80 transition-colors flex items-start gap-5"
+                >
+                  <span className="font-serif text-2xl font-normal text-gold-400/90 tracking-widest shrink-0 mt-0.5">
                     0{idx + 1}
-                  </div>
+                  </span>
                   <div>
                     <h3 className="font-serif text-base sm:text-lg font-bold text-white mb-1.5">
                       {adv.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                       {adv.desc}
                     </p>
                   </div>
-                </div>
-              </Card>
-            ))}
+                </article>
+              ))}
+            </div>
 
             <div className="pt-4 flex flex-col sm:flex-row gap-4">
               <Button

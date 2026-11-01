@@ -486,7 +486,7 @@ export const Navbar = ({ onOpenBooking }) => {
                   setMobileMenuOpen(false);
                   onOpenBooking();
                 }}
-                className="py-3 text-sm font-semibold shadow-gold-glow/20 justify-center"
+                className="py-3 text-sm font-semibold justify-center"
               >
                 {hero.ctaPrimary}
               </Button>

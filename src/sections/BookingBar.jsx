@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { Button } from '../design-system/Button';
-import { Card } from '../design-system/Card';
-import { Calendar, Users, BedDouble, Search, BadgePercent, ChevronDown } from 'lucide-react';
+import { Calendar, Users, Search, ChevronDown } from 'lucide-react';
+
+const formatDate = (date) => date.toISOString().split('T')[0];
+const TODAY_ISO = formatDate(new Date());
 
 export const BookingBar = ({ onSearchBooking }) => {
   const { content } = useLanguage();
-  const { bookingBar, roomsSection } = content;
+  const { bookingBar } = content;
 
-  // Varsayılan giriş tarihi: yarın, çıkış: 2 gün sonrası
-  const today = new Date();
-  const defaultCheckIn = new Date(today);
-  defaultCheckIn.setDate(today.getDate() + 1);
-  const defaultCheckOut = new Date(today);
-  defaultCheckOut.setDate(today.getDate() + 3);
+  // Varsayılan giriş ve çıkış tarihleri (Lazy initializers to ensure purity)
+  const [checkIn, setCheckIn] = useState(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    return formatDate(d);
+  });
 
-  const formatDate = (date) => date.toISOString().split('T')[0];
+  const [checkOut, setCheckOut] = useState(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 3);
+    return formatDate(d);
+  });
 
-  const [checkIn, setCheckIn] = useState(formatDate(defaultCheckIn));
-  const [checkOut, setCheckOut] = useState(formatDate(defaultCheckOut));
   const [adults, setAdults] = useState(bookingBar.defaultGuests.adults);
   const [childrenCount, setChildrenCount] = useState(bookingBar.defaultGuests.children);
-  const [selectedRoomId, setSelectedRoomId] = useState(roomsSection.rooms[0].id);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,36 +33,30 @@ export const BookingBar = ({ onSearchBooking }) => {
       checkOut,
       adults: Number(adults),
       children: Number(childrenCount),
-      roomId: selectedRoomId
+      roomId: null
     });
   };
 
   return (
-    <div className="relative z-20 -mt-6 sm:-mt-10 lg:-mt-14 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
-      <Card variant="goldBorder" hover={false} className="p-3.5 sm:p-6 lg:p-7 shadow-2xl backdrop-blur-2xl">
+    <div className="relative z-20 -mt-8 sm:-mt-12 lg:-mt-16 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+      <div className="p-4 sm:p-5 lg:p-6 rounded-2xl bg-[#090F1C]/95 border border-slate-800 shadow-2xl backdrop-blur-2xl">
         
-        {/* Top Direct Booking Badge Banner */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 mb-4 sm:mb-5 pb-3 sm:pb-4 border-b border-white/10">
-          <div>
-            <span className="text-xs sm:text-sm font-semibold text-white tracking-wide block">
-              {bookingBar.title}
-            </span>
-            <span className="text-[11px] sm:text-xs text-slate-400">
-              {bookingBar.subtitle}
-            </span>
-          </div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/15 border border-gold-500/40 text-[11px] sm:text-xs font-medium text-gold-300 shadow-sm self-start sm:self-auto">
-            <BadgePercent className="w-3.5 h-3.5 text-gold-400 shrink-0" />
-            <span>{bookingBar.labels.directBookingBadge}</span>
-          </div>
+        {/* Top Header: Clean, Discreet Luxury Reassurance */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-3.5 sm:mb-4 border-b border-slate-800/80">
+          <h3 className="text-xs sm:text-sm font-semibold text-white tracking-wide">
+            {bookingBar.title}
+          </h3>
+          <span className="text-[11px] sm:text-xs font-semibold text-gold-400/90 tracking-wide uppercase">
+            {bookingBar.labels.directBookingBadge}
+          </span>
         </div>
 
-        {/* Booking Form Grid */}
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-2.5 sm:gap-3.5 items-end">
+        {/* Booking Form Grid: 4 Clean Columns on Desktop (Check-In, Check-Out, Guests, Submit) */}
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 md:grid-cols-12 gap-2.5 sm:gap-3.5 items-end">
           
           {/* Check-in Date */}
-          <div className="col-span-1 lg:col-span-2 space-y-1 sm:space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 h-5">
+          <div className="col-span-1 md:col-span-3 space-y-1 sm:space-y-1.5">
+            <label className="text-[11px] sm:text-xs font-semibold text-slate-300 flex items-center gap-1.5 h-5">
               <Calendar className="w-3.5 h-3.5 text-gold-400 shrink-0" />
               <span className="truncate">{bookingBar.labels.checkIn}</span>
             </label>
@@ -67,9 +64,9 @@ export const BookingBar = ({ onSearchBooking }) => {
               <input
                 type="date"
                 value={checkIn}
-                min={formatDate(today)}
+                min={TODAY_ISO}
                 onChange={(e) => setCheckIn(e.target.value)}
-                className="w-full h-10 sm:h-11 glass-input text-white text-xs sm:text-sm rounded-lg pl-2.5 pr-8 sm:pl-3 sm:pr-10 bg-hotel-900/90 text-slate-100 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
+                className="w-full h-10 sm:h-11 glass-input text-white text-xs sm:text-sm rounded-xl pl-2.5 pr-8 sm:pl-3.5 sm:pr-9 bg-hotel-900/90 cursor-pointer focus:ring-1 focus:ring-gold-500/50 border border-slate-800"
                 required
               />
               <Calendar className="w-4 h-4 text-gold-400 pointer-events-none absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2" />
@@ -77,8 +74,8 @@ export const BookingBar = ({ onSearchBooking }) => {
           </div>
 
           {/* Check-out Date */}
-          <div className="col-span-1 lg:col-span-2 space-y-1 sm:space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 h-5">
+          <div className="col-span-1 md:col-span-3 space-y-1 sm:space-y-1.5">
+            <label className="text-[11px] sm:text-xs font-semibold text-slate-300 flex items-center gap-1.5 h-5">
               <Calendar className="w-3.5 h-3.5 text-gold-400 shrink-0" />
               <span className="truncate">{bookingBar.labels.checkOut}</span>
             </label>
@@ -88,7 +85,7 @@ export const BookingBar = ({ onSearchBooking }) => {
                 value={checkOut}
                 min={checkIn}
                 onChange={(e) => setCheckOut(e.target.value)}
-                className="w-full h-10 sm:h-11 glass-input text-white text-xs sm:text-sm rounded-lg pl-2.5 pr-8 sm:pl-3 sm:pr-10 bg-hotel-900/90 text-slate-100 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
+                className="w-full h-10 sm:h-11 glass-input text-white text-xs sm:text-sm rounded-xl pl-2.5 pr-8 sm:pl-3.5 sm:pr-9 bg-hotel-900/90 cursor-pointer focus:ring-1 focus:ring-gold-500/50 border border-slate-800"
                 required
               />
               <Calendar className="w-4 h-4 text-gold-400 pointer-events-none absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2" />
@@ -96,8 +93,8 @@ export const BookingBar = ({ onSearchBooking }) => {
           </div>
 
           {/* Guests: Adults & Children */}
-          <div className="col-span-2 sm:col-span-1 lg:col-span-3 space-y-1 sm:space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 h-5">
+          <div className="col-span-2 md:col-span-3 space-y-1 sm:space-y-1.5">
+            <label className="text-[11px] sm:text-xs font-semibold text-slate-300 flex items-center gap-1.5 h-5">
               <Users className="w-3.5 h-3.5 text-gold-400 shrink-0" />
               <span>{bookingBar.labels.adults} / {bookingBar.labels.children}</span>
             </label>
@@ -106,9 +103,9 @@ export const BookingBar = ({ onSearchBooking }) => {
                 <select
                   value={adults}
                   onChange={(e) => setAdults(e.target.value)}
-                  className="w-full h-10 sm:h-11 appearance-none glass-input text-white text-xs sm:text-sm rounded-lg pl-3 pr-7 bg-hotel-900/90 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
+                  className="w-full h-10 sm:h-11 appearance-none glass-input text-white text-xs sm:text-sm rounded-xl pl-3 pr-7 bg-hotel-900/90 cursor-pointer focus:ring-1 focus:ring-gold-500/50 border border-slate-800"
                 >
-                  {[1, 2, 3, 4].map((num) => (
+                  {[1, 2, 3, 4, 5, 6].map((num) => (
                     <option key={num} value={num} className="bg-hotel-950 text-white">
                       {num} {bookingBar.labels.adults}
                     </option>
@@ -120,7 +117,7 @@ export const BookingBar = ({ onSearchBooking }) => {
                 <select
                   value={childrenCount}
                   onChange={(e) => setChildrenCount(e.target.value)}
-                  className="w-full h-10 sm:h-11 appearance-none glass-input text-white text-xs sm:text-sm rounded-lg pl-3 pr-7 bg-hotel-900/90 cursor-pointer focus:ring-1 focus:ring-gold-500/50"
+                  className="w-full h-10 sm:h-11 appearance-none glass-input text-white text-xs sm:text-sm rounded-xl pl-3 pr-7 bg-hotel-900/90 cursor-pointer focus:ring-1 focus:ring-gold-500/50 border border-slate-800"
                 >
                   {[0, 1, 2, 3].map((num) => (
                     <option key={num} value={num} className="bg-hotel-950 text-white">
@@ -133,31 +130,9 @@ export const BookingBar = ({ onSearchBooking }) => {
             </div>
           </div>
 
-          {/* Room Selection */}
-          <div className="col-span-2 sm:col-span-1 lg:col-span-2 space-y-1 sm:space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 h-5">
-              <BedDouble className="w-3.5 h-3.5 text-gold-400 shrink-0" />
-              <span>{bookingBar.labels.roomType}</span>
-            </label>
-            <div className="relative flex items-center">
-              <select
-                value={selectedRoomId}
-                onChange={(e) => setSelectedRoomId(e.target.value)}
-                className="w-full h-10 sm:h-11 appearance-none glass-input text-white text-xs sm:text-sm rounded-lg pl-3 pr-8 bg-hotel-900/90 cursor-pointer truncate focus:ring-1 focus:ring-gold-500/50"
-              >
-                {roomsSection.rooms.map((room) => (
-                  <option key={room.id} value={room.id} className="bg-hotel-950 text-white">
-                    {room.name} ({room.formattedPrice})
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="w-4 h-4 text-gold-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2" />
-            </div>
-          </div>
-
           {/* Search / Submit Button */}
-          <div className="col-span-2 sm:col-span-2 lg:col-span-3 space-y-1 sm:space-y-1.5">
-            <div className="h-5 hidden lg:block" aria-hidden="true" />
+          <div className="col-span-2 md:col-span-3 space-y-1 sm:space-y-1.5">
+            <div className="h-5 hidden md:block" aria-hidden="true" />
             <Button
               type="submit"
               variant="gold"
@@ -165,15 +140,17 @@ export const BookingBar = ({ onSearchBooking }) => {
               size="md"
               icon={Search}
               iconPosition="right"
-              className="h-10 sm:h-11 w-full px-4 text-xs xl:text-sm font-semibold tracking-normal sm:tracking-wide flex items-center justify-center gap-2 shadow-md hover:shadow-gold-glow/50"
+              className="h-10 sm:h-11 w-full px-4 text-xs xl:text-sm font-semibold tracking-wide flex items-center justify-center gap-2 shadow-md"
             >
-              {bookingBar.labels.submitButton}
+              <span>{bookingBar.labels.submitButton}</span>
             </Button>
           </div>
 
         </form>
 
-      </Card>
+      </div>
     </div>
   );
 };
+
+export default BookingBar;

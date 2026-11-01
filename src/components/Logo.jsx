@@ -7,6 +7,10 @@ import React from 'react';
  */
 export const LogoEmblem = ({ size = 'md', className = '', alt = 'City One Hotel Kayseri' }) => {
   const sizeMap = {
+    xs: {
+      container: 'h-6 sm:h-7 w-auto',
+      img: 'h-6 sm:h-7 w-auto',
+    },
     sm: {
       container: 'h-8 sm:h-9 w-auto',
       img: 'h-8 sm:h-9 w-auto',

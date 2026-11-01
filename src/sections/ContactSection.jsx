@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
 import { Button } from '../design-system/Button';
-import { Card } from '../design-system/Card';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, ExternalLink, Navigation } from 'lucide-react';
+import { MapPin, Send, CheckCircle2, ExternalLink, Navigation } from 'lucide-react';
 
-export default function ContactSection() {
+export default function ContactSection({ onOpenLegal }) {
   const { content, currentLang } = useLanguage();
   const { contactSection, hotel } = content;
   const [submitted, setSubmitted] = useState(false);
@@ -67,178 +66,117 @@ export default function ContactSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           
-          {/* Contact Details & Info Cards */}
-          <div className="lg:col-span-5 space-y-3 sm:space-y-4">
+          {/* Unified Contact Dossier Panel (Single Clean Architecture, No Nested Boxes) */}
+          <div className="lg:col-span-5 rounded-2xl bg-hotel-900/40 border border-slate-800/80 p-6 sm:p-8 space-y-6 divide-y divide-slate-800/80">
             
-            {/* Address */}
-            <Card variant="elevated" hover={false} className="p-3.5 sm:p-5 border-slate-800">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    {contactSection.addressTitle}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    {contactSection.addressText}
-                  </p>
-                  <span className="text-[11px] text-gold-400 mt-2 block font-medium">
-                    {hotel.locationHighlights}
-                  </span>
-                  <div className="mt-2.5 pt-2 border-t border-slate-800/60">
+            {/* Address Block */}
+            <div className="space-y-2">
+              <h3 className="font-serif text-base sm:text-lg font-bold text-white">
+                {contactSection.addressTitle}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                {contactSection.addressText}
+              </p>
+              <span className="text-[11px] text-gold-400 block font-medium">
+                {hotel.locationHighlights}
+              </span>
+              <div className="pt-2">
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-gold-400 hover:text-gold-300 text-xs font-semibold transition-colors"
+                >
+                  <span>{openMapsLabel}</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+            </div>
+
+            {/* Phone Numbers Block */}
+            <div className="pt-6 space-y-3">
+              <h3 className="font-serif text-base sm:text-lg font-bold text-white">
+                {contactSection.phoneTitle}
+              </h3>
+              <div className="space-y-2">
+                {contactSection.phones.map((p, i) => {
+                  const isObj = typeof p === 'object';
+                  const label = isObj ? p.label : (i === 0 ? (contactSection.receptionLabel || 'Resepsiyon & Rezervasyon') : 'WhatsApp');
+                  const number = isObj ? (p.display || p.number) : p;
+                  const href = isObj ? p.href : `tel:${p.replace(/[^0-9+]/g, '')}`;
+                  const isWa = isObj ? p.isWhatsapp : (i === 1);
+
+                  return (
                     <a
-                      href={googleMapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-500/10 hover:bg-gold-500/20 text-gold-300 border border-gold-500/30 text-xs font-semibold transition-all group cursor-pointer"
+                      key={i}
+                      href={href}
+                      target={isWa ? "_blank" : undefined}
+                      rel={isWa ? "noopener noreferrer" : undefined}
+                      className="flex items-center justify-between py-2 text-xs text-slate-300 hover:text-white transition-colors group"
                     >
-                      <Navigation className="w-3.5 h-3.5 text-gold-400 group-hover:scale-110 transition-transform" />
-                      <span>{openMapsLabel}</span>
-                      <ExternalLink className="w-3 h-3 text-gold-400/80" />
+                      <div>
+                        <span className="text-[11px] text-slate-400 block">{label}</span>
+                        <span className={`font-semibold ${isWa ? 'text-gold-400' : 'text-slate-200 group-hover:text-gold-300'}`}>
+                          {number}
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-gold-400/80 group-hover:text-gold-300">
+                        {isWa ? 'WhatsApp →' : `${callActionLabel} →`}
+                      </span>
                     </a>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
-            </Card>
+            </div>
 
-            {/* Phone Numbers: Santral & WhatsApp */}
-            <Card variant="elevated" hover={false} className="p-3.5 sm:p-5 border-slate-800">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 shrink-0">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-white text-sm mb-2">
-                    {contactSection.phoneTitle}
-                  </h3>
-                  <div className="space-y-2.5">
-                    {contactSection.phones.map((p, i) => {
-                      const isObj = typeof p === 'object';
-                      const label = isObj ? p.label : (i === 0 ? (contactSection.receptionLabel || 'Resepsiyon & Rezervasyon') : 'WhatsApp');
-                      const number = isObj ? (p.display || p.number) : p;
-                      const href = isObj ? p.href : `tel:${p.replace(/[^0-9+]/g, '')}`;
-                      const subtext = isObj ? p.subtext : null;
-                      const isWa = isObj ? p.isWhatsapp : (i === 1);
-
-                      return (
-                        <a
-                          key={i}
-                          href={href}
-                          target={isWa ? "_blank" : undefined}
-                          rel={isWa ? "noopener noreferrer" : undefined}
-                          className={`flex items-center justify-between p-2.5 rounded-lg border transition-all ${
-                            isWa 
-                              ? 'bg-gold-500/10 border-gold-500/30 hover:border-gold-400 hover:bg-gold-500/15' 
-                              : 'bg-slate-900/60 border-slate-800 hover:border-gold-500/40 hover:bg-slate-900'
-                          }`}
-                        >
-                          <div>
-                            <span className="text-[11px] font-medium text-slate-400 block">
-                              {label}
-                            </span>
-                            <span className={`text-xs sm:text-sm font-bold ${isWa ? 'text-gold-400' : 'text-white'}`}>
-                              {number}
-                            </span>
-                            {subtext && (
-                              <span className="text-[10px] text-slate-400 block mt-0.5">
-                                {subtext}
-                              </span>
-                            )}
-                          </div>
-                          <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
-                            isWa 
-                              ? 'bg-gold-500/20 text-gold-300 border border-gold-500/30' 
-                              : 'bg-gold-500/15 text-gold-300 border border-gold-500/20'
-                          }`}>
-                            {isWa ? 'WhatsApp' : callActionLabel}
-                          </span>
-                        </a>
-                      );
-                    })}
-                  </div>
-                </div>
+            {/* Email Addresses Block */}
+            <div className="pt-6 space-y-2">
+              <h3 className="font-serif text-base sm:text-lg font-bold text-white">
+                {contactSection.emailTitle}
+              </h3>
+              <div className="space-y-1">
+                {contactSection.emails.map((email, i) => (
+                  <a
+                    key={i}
+                    href={`mailto:${email}`}
+                    className="block text-xs sm:text-sm text-slate-300 hover:text-gold-300 transition-colors"
+                  >
+                    {email}
+                  </a>
+                ))}
               </div>
-            </Card>
+            </div>
 
-            {/* Email Addresses */}
-            <Card variant="elevated" hover={false} className="p-3.5 sm:p-5 border-slate-800">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white text-sm mb-1">
-                    {contactSection.emailTitle}
-                  </h3>
-                  <div className="space-y-1">
-                    {contactSection.emails.map((email, i) => (
-                      <a
-                        key={i}
-                        href={`mailto:${email}`}
-                        className="block text-xs sm:text-sm text-slate-300 hover:text-gold-300 transition-colors"
-                      >
-                        {email}
-                      </a>
-                    ))}
+            {/* Operational Hours Block */}
+            <div className="pt-6 space-y-3">
+              <h3 className="font-serif text-base sm:text-lg font-bold text-white">
+                {contactSection.hoursTitle}
+              </h3>
+              <div className="space-y-2 text-xs text-slate-300">
+                {(contactSection.hoursList || []).map((h, i) => (
+                  <div key={i} className="flex items-center justify-between py-1">
+                    <span className="text-slate-400">{h.label}</span>
+                    <span className="text-gold-300 font-semibold">{h.time}</span>
                   </div>
-                </div>
+                ))}
               </div>
-            </Card>
+            </div>
 
-            {/* Hours Detailed List */}
-            <Card variant="elevated" hover={false} className="p-3.5 sm:p-5 border-slate-800">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 shrink-0">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-white text-sm mb-2">
-                    {contactSection.hoursTitle}
-                  </h3>
-                  <div className="space-y-2 text-xs text-slate-300">
-                    {(contactSection.hoursList || []).map((h, i) => {
-                      const hasDivider = h.time && h.time.includes('•');
-                      const parts = hasDivider ? h.time.split('•').map(s => s.trim()) : [h.time];
-
-                      return (
-                        <div key={i} className="flex flex-col sm:flex-row sm:items-start sm:justify-between pb-1.5 border-b border-slate-800/60 last:border-0 last:pb-0 gap-1 sm:gap-3">
-                          <span className="text-slate-400 font-medium shrink-0 pt-0.5">{h.label}</span>
-                          {parts.length > 1 ? (
-                            <div className="flex flex-col sm:items-end text-gold-300 font-semibold text-[11px] sm:text-xs space-y-0.5 sm:text-right">
-                              {parts.map((p, pIdx) => (
-                                <span key={pIdx} className="whitespace-nowrap">{p}</span>
-                              ))}
-                            </div>
-                          ) : (
-                            <span className="text-gold-300 font-semibold text-[11px] sm:text-xs sm:text-right">
-                              {h.time}
-                            </span>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            {/* Complimentary Guest Privileges Card (Lüks Alt Alta Sıralı Altın Konsept) */}
+            {/* Privileges Block */}
             {contactSection.privileges && (
-              <Card variant="glassmorphism" hover={false} className="p-4 sm:p-5 border-gold-500/25 bg-gold-500/5 shadow-xl">
-                <h4 className="font-serif text-sm sm:text-base font-bold text-gold-300 mb-3 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-gold-400 shrink-0" />
-                  <span>{contactSection.privilegesTitle}</span>
+              <div className="pt-6 space-y-3">
+                <h4 className="font-serif text-sm sm:text-base font-bold text-gold-300">
+                  {contactSection.privilegesTitle}
                 </h4>
-                <div className="flex flex-col space-y-2 text-xs text-slate-200">
+                <div className="space-y-1.5 text-xs text-slate-300">
                   {contactSection.privileges.map((privilege, i) => (
-                    <div key={i} className="flex items-start gap-2.5 py-1 border-b border-white/5 last:border-0">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-gold-400 shrink-0 mt-0.5" />
-                      <span className="leading-snug text-slate-200 font-normal">{privilege}</span>
+                    <div key={i} className="flex items-center gap-2">
+                      <span className="text-gold-400/60">•</span>
+                      <span>{privilege}</span>
                     </div>
                   ))}
                 </div>
-              </Card>
+              </div>
             )}
 
           </div>
@@ -269,7 +207,7 @@ export default function ContactSection() {
                   href={googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg bg-gold-gradient text-white text-xs font-bold shadow-md shadow-gold-500/20 hover:shadow-gold-500/40 hover:scale-102 active:scale-98 transition-all shrink-0 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg bg-gold-500 hover:bg-gold-400 text-hotel-950 text-xs font-medium transition-colors shrink-0 cursor-pointer"
                 >
                   <Navigation className="w-3.5 h-3.5 text-white" />
                   <span>{openMapsLabel}</span>
@@ -312,7 +250,7 @@ export default function ContactSection() {
             </div>
 
             {/* Quick Contact Inquiry Form */}
-            <Card variant="glassmorphism" hover={false} className="p-4 sm:p-6 border-slate-800">
+            <div className="p-5 sm:p-8 rounded-2xl bg-hotel-900/40 border border-slate-800/80">
               <h3 className="font-serif text-lg font-bold text-white mb-2">
                 {contactSection.quickForm?.title || 'Hızlı İletişim & Talep Formu'}
               </h3>
@@ -373,9 +311,62 @@ export default function ContactSection() {
                   >
                     {contactSection.quickForm?.submitButton || 'Mesajı Gönder'}
                   </Button>
+                  {onOpenLegal && (
+                    <p className="text-[11px] text-slate-400 text-center pt-1 leading-snug">
+                      {currentLang === 'tr' ? (
+                        <>
+                          Formu göndererek{' '}
+                          <button
+                            type="button"
+                            onClick={() => onOpenLegal('aydinlatma')}
+                            className="text-gold-400 hover:text-gold-300 underline underline-offset-2 cursor-pointer font-medium"
+                          >
+                            KVKK Aydınlatma Metni
+                          </button>
+                          'ni okuduğunuzu onaylamış olursunuz.
+                        </>
+                      ) : currentLang === 'en' ? (
+                        <>
+                          By submitting, you agree to our{' '}
+                          <button
+                            type="button"
+                            onClick={() => onOpenLegal('aydinlatma')}
+                            className="text-gold-400 hover:text-gold-300 underline underline-offset-2 cursor-pointer font-medium"
+                          >
+                            Privacy & KVKK Notice
+                          </button>
+                          .
+                        </>
+                      ) : currentLang === 'de' ? (
+                        <>
+                          Mit dem Absenden stimmen Sie unserer{' '}
+                          <button
+                            type="button"
+                            onClick={() => onOpenLegal('aydinlatma')}
+                            className="text-gold-400 hover:text-gold-300 underline underline-offset-2 cursor-pointer font-medium"
+                          >
+                            Datenschutzerklärung
+                          </button>{' '}
+                          zu.
+                        </>
+                      ) : (
+                        <>
+                          Отправляя форму, вы подтверждаете согласие с{' '}
+                          <button
+                            type="button"
+                            onClick={() => onOpenLegal('aydinlatma')}
+                            className="text-gold-400 hover:text-gold-300 underline underline-offset-2 cursor-pointer font-medium"
+                          >
+                            Уведомлением KVKK
+                          </button>
+                          .
+                        </>
+                      )}
+                    </p>
+                  )}
                 </form>
               )}
-            </Card>
+            </div>
 
           </div>
 

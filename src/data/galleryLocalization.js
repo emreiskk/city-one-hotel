@@ -1,6 +1,6 @@
 /**
  * City One Hotel - Çok Dilli Galeri ve Medya Lokalizasyonu (TR, EN, DE, RU)
- * 27 fotoğraf ve video başlığı, alt başlığı ve tür etiketleri.
+ * 31 fotoğraf ve video başlığı, alt başlığı ve tür etiketleri.
  */
 
 export const galleryLocalization = {
@@ -9,6 +9,32 @@ export const galleryLocalization = {
     watchLabel: "CANLI VİDEO",
     videoTourBadge: "Video Tur",
     verticalTourBadge: "Dikey Tur",
+    ui: {
+      portalBadge: "FOTOĞRAF & VİDEO ARŞİVİ",
+      portalTitle: "City One Hotel Fotoğraf & Video Portalı",
+      portalSubtitle: "Erciyes Dağı'nın eteklerinde yükselen zarafet; odalarımız, salonlarımız ve dinlenme alanlarımız.",
+      showcaseBadge: "EDİTORYAL VİTRİN",
+      showcaseTitle: "Otelimizden İmza Kareler",
+      showcaseSubtitle: "Erciyes Dağı'nın eteklerinde yükselen zarafet; salonlarımız, odalarımız ve yaşam alanlarımızdan seçkin anlar.",
+      exploreAllTitle: "Tüm Fotoğraf & Video Galerisini Keşfet",
+      exploreAllDesc: "Odalarımız, balo salonlarımız, 1500 m² SPA merkezimiz ve seçkin lezzet mekanlarımız.",
+      exploreAllButton: "Tüm Fotoğraf & Video Arşivini Aç (31)",
+      swipeHint: "Kaydırarak keşfedin",
+      viewDetails: "Büyüt & İncele",
+      watchVideo: "Canlı İzle",
+      backToHotel: "Kapat",
+      closeModal: "Kapat",
+      mediaCount: "Medya",
+      categories: {
+        all: "Tüm Galeri",
+        exterior: "Dış Cephe & Lobi",
+        rooms: "Odalar & Süitler",
+        halls: "Balo & Kongre Salonları",
+        spa: "SPA, Havuz & Hamam",
+        dining: "Restoran & Açık Büfe",
+        videos: "Canlı Video Turları"
+      }
+    },
     items: {
       'v-kayseri': { title: 'Kayseri Balo Salonu Canlı Tanıtımı', subtitle: '500 Kişilik Kolonsuz Yüksek Tavanlı Balo Salonu' },
       'v-sini': { title: 'Sini Salonu & Ziyafet Alanı', subtitle: 'Özel Davet ve Kurumsal Etkinlik Salonu' },
@@ -49,6 +75,32 @@ export const galleryLocalization = {
     watchLabel: "WATCH VIDEO",
     videoTourBadge: "Video Tour",
     verticalTourBadge: "Vertical Tour",
+    ui: {
+      portalBadge: "PHOTO & VIDEO ARCHIVE",
+      portalTitle: "City One Hotel Media & Video Showcase",
+      portalSubtitle: "Refined elegance overlooking Mount Erciyes; our suites, ballrooms, and relaxation spaces.",
+      showcaseBadge: "CURATED SHOWCASE",
+      showcaseTitle: "Signature Moments from City One",
+      showcaseSubtitle: "Highlights of our refined architecture overlooking Mount Erciyes. Open the complete gallery for all media.",
+      exploreAllTitle: "Explore Complete Media Archive",
+      exploreAllDesc: "Our suites, grand ballrooms, 1500 m² SPA wellness center, and fine dining venues.",
+      exploreAllButton: "View Complete Photo & Video Archive (31)",
+      swipeHint: "Swipe to explore",
+      viewDetails: "Enlarge & View",
+      watchVideo: "Watch Live",
+      backToHotel: "Close",
+      closeModal: "Close",
+      mediaCount: "Media",
+      categories: {
+        all: "All Gallery",
+        exterior: "Exterior & Lobby",
+        rooms: "Rooms & Suites",
+        halls: "Ballrooms & Halls",
+        spa: "SPA, Pool & Hamam",
+        dining: "Restaurant & Buffet",
+        videos: "Live Video Tours"
+      }
+    },
     items: {
       'v-kayseri': { title: 'Kayseri Grand Ballroom Live Tour', subtitle: 'Pillar-Free 500-Guest High-Ceiling Ballroom' },
       'v-sini': { title: 'Sini Restaurant & Banquet Hall', subtitle: 'Corporate Events & Special Gala Receptions' },
@@ -89,6 +141,32 @@ export const galleryLocalization = {
     watchLabel: "VIDEO ANSEHEN",
     videoTourBadge: "Video-Tour",
     verticalTourBadge: "Vertikale Tour",
+    ui: {
+      portalBadge: "FOTO- & VIDEOARCHIV",
+      portalTitle: "City One Hotel Medien- & Videoportal",
+      portalSubtitle: "Erlesene Eleganz am Fuße des Erciyes; unsere Suiten, Festsäle und Entspannungsbereiche.",
+      showcaseBadge: "AUSGEWÄHLTE GALERIE",
+      showcaseTitle: "Impressionen aus dem City One",
+      showcaseSubtitle: "Erlesene Momente unserer Architektur am Fuße des Erciyes. Öffnen Sie die vollständige Galerie.",
+      exploreAllTitle: "Komplettes Medienarchiv entdecken",
+      exploreAllDesc: "Unsere Suiten, Festsäle, 1500 m² SPA-Bereich und erstklassige Restaurants.",
+      exploreAllButton: "Komplettes Foto- & Videoarchiv ansehen (31)",
+      swipeHint: "Wischen zum Entdecken",
+      viewDetails: "Vergrößern & Ansehen",
+      watchVideo: "Video ansehen",
+      backToHotel: "Schließen",
+      closeModal: "Schließen",
+      mediaCount: "Medien",
+      categories: {
+        all: "Alle Medien",
+        exterior: "Außenansicht & Lobby",
+        rooms: "Zimmer & Suiten",
+        halls: "Festsäle & Kongresse",
+        spa: "SPA, Pool & Hamam",
+        dining: "Restaurant & Buffet",
+        videos: "Live-Videotouren"
+      }
+    },
     items: {
       'v-kayseri': { title: 'Kayseri Ballsaal Live-Rundgang', subtitle: 'Säulenfreier 500-Personen Festsaal mit hohen Decken' },
       'v-sini': { title: 'Sini Restaurant & Bankettsaal', subtitle: 'Exklusive Feiern & geschäftliche Galas' },
@@ -129,6 +207,32 @@ export const galleryLocalization = {
     watchLabel: "СМОТРЕТЬ ВИДЕО",
     videoTourBadge: "Видеотур",
     verticalTourBadge: "Вертикальный тур",
+    ui: {
+      portalBadge: "ФОТО- И ВИДЕОАРХИВ",
+      portalTitle: "Медиапортал City One Hotel",
+      portalSubtitle: "Изысканная эстетика у подножия горы Эрджиес: наши люксы, банкетные залы и спа-пространства.",
+      showcaseBadge: "ИЗБРАННАЯ ГАЛЕРЕЯ",
+      showcaseTitle: "Знаковые кадры City One Hotel",
+      showcaseSubtitle: "Архитектурная эстетика у подножия горы Эрджиес. Откройте полный медиаархив.",
+      exploreAllTitle: "Исследуйте полный медиаархив",
+      exploreAllDesc: "Наши люксы, банкетные залы, СПА-центр 1500 м² и рестораны.",
+      exploreAllButton: "Открыть полный фото- и видеоархив (31)",
+      swipeHint: "Листайте для просмотра",
+      viewDetails: "Увеличить и просмотреть",
+      watchVideo: "Смотреть видео",
+      backToHotel: "Закрыть",
+      closeModal: "Закрыть",
+      mediaCount: "Медиа",
+      categories: {
+        all: "Все медиа",
+        exterior: "Фасад и лобби",
+        rooms: "Номера и люксы",
+        halls: "Банкетные залы",
+        spa: "СПА, бассейн и хаммам",
+        dining: "Ресторан и шведский стол",
+        videos: "Живые видеотуры"
+      }
+    },
     items: {
       'v-kayseri': { title: 'Презентация банкетного зала Kayseri', subtitle: 'Бесколонный зал с высокими потолками на 500 персон' },
       'v-sini': { title: 'Банкетный зал ресторана Sini', subtitle: 'Пространство для торжеств и корпоративных событий' },
@@ -141,7 +245,7 @@ export const galleryLocalization = {
       'g-lobby-2': { title: 'Лаунж-зона лобби', subtitle: 'Просторная и тихая обстановка для деловых встреч' },
       'g-room-standart': { title: 'Стандартный номер с видом на город', subtitle: 'Ортопедическая кровать, рабочий стол и Wi-Fi 6' },
       'g-room-superior': { title: 'Номер Superior повышенной комфортности', subtitle: 'Просторный номер с эргономичным интерьером' },
-      'g-room-double': { title: 'Двухместный номер Double Deluxe', subtitle: 'Широкая кровать King Size и панорамные окна' },
+      'g-room-double': { title: 'Double Deluxe двухместный номер', subtitle: 'Широкая кровать King Size и панорамные окна' },
       'g-room-family': { title: 'Семейный номер Family Comfort', subtitle: 'Раздельные кровати для размещения до 4 гостей' },
       'g-room-jakuzi': { title: 'Люкс для новобрачных с джакузи', subtitle: 'Приватное гидромассажное джакузи и VIP-сервис' },
       'g-room-jakuzi-det': { title: 'Гидромассажное джакузи в номере', subtitle: 'Романтический и расслабляющий гидромассаж' },

@@ -52,19 +52,16 @@ export const FloatingActions = () => {
         </span>
       </a>
 
-      {/* Primary Fixed WhatsApp Reservation Button in Unified Luxury Gold */}
+      {/* Primary Fixed WhatsApp Reservation Button */}
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         title={floatingActions.whatsappTooltip}
         aria-label={floatingActions.whatsappTooltip}
-        className="group relative flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-gold-gradient hover:bg-gold-gradient-hover text-white shadow-xl border border-gold-300/40 transition-all duration-200 hover:scale-105 active:scale-95"
+        className="group relative flex items-center justify-center w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-gold-500 hover:bg-gold-400 text-hotel-950 shadow-xl border border-gold-300/40 transition-all duration-200 active:scale-95"
       >
-        {/* Subtle pulsing gold ring */}
-        <span className="absolute -inset-0.5 rounded-full bg-gold-400/25 animate-ping opacity-60 pointer-events-none" />
-        
-        <MessageCircle className="w-5 h-5 sm:w-7 sm:h-7 relative z-10" />
+        <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 relative z-10" />
 
         {/* Hover Tooltip on desktop */}
         <span className="hidden sm:block absolute right-16 bg-hotel-950/95 text-slate-200 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-700 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none shadow-xl">

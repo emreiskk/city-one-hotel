@@ -57,9 +57,9 @@ export const LanguageSwitcher = ({
               key={lang.code}
               type="button"
               onClick={() => setLanguage(lang.code)}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 isActive
-                  ? 'bg-gold-gradient text-white font-semibold shadow-lg shadow-gold-500/25 border border-gold-400/40'
+                  ? 'bg-gold-500/15 text-gold-300 border border-gold-400/30'
                   : 'bg-transparent text-slate-300 hover:text-white hover:bg-hotel-800/80 border border-transparent'
               }`}
             >
@@ -89,7 +89,7 @@ export const LanguageSwitcher = ({
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer shadow-md shrink-0 group border ring-1 ring-white/5 active:scale-95 ${
           isOpen
-            ? 'bg-gold-500/15 border-gold-400/50 text-white shadow-gold-glow/20'
+            ? 'bg-gold-500/15 border-gold-400/50 text-white'
             : 'bg-hotel-900/90 hover:bg-hotel-800/90 border-slate-800/90 hover:border-gold-500/40 text-slate-200 hover:text-white'
         }`}
         aria-expanded={isOpen}

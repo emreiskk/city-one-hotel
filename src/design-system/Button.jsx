@@ -18,14 +18,14 @@ export const Button = ({
   as: Component = 'button',
   ...props
 }) => {
-  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer active:scale-[0.98] select-none whitespace-nowrap';
+  const baseStyles = 'inline-flex items-center justify-center font-medium transition-colors duration-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gold-500/50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer active:scale-[0.99] select-none whitespace-nowrap';
 
   const variants = {
-    gold: 'bg-gold-gradient hover:bg-gold-gradient-hover text-white font-semibold shadow-lg hover:shadow-gold-glow hover:-translate-y-0.5 border border-gold-400/30',
-    dark: 'bg-hotel-900/80 hover:bg-hotel-850 text-slate-100 border border-slate-700/80 hover:border-gold-500/40 shadow-sm hover:-translate-y-0.5 backdrop-blur-md',
-    outline: 'bg-hotel-950/60 hover:bg-gold-500/20 text-gold-300 hover:text-gold-200 border border-gold-500/50 hover:border-gold-400 shadow-lg hover:-translate-y-0.5 backdrop-blur-md',
+    gold: 'bg-gold-gradient hover:bg-gold-gradient-hover text-white font-semibold shadow-md border border-gold-400/30',
+    dark: 'bg-hotel-900/90 hover:bg-hotel-800 text-slate-100 border border-slate-700/80 hover:border-slate-600 shadow-sm backdrop-blur-md',
+    outline: 'bg-transparent hover:bg-gold-500/10 text-gold-300 hover:text-gold-200 border border-gold-500/40 hover:border-gold-400',
     ghost: 'bg-transparent hover:bg-white/5 text-slate-300 hover:text-white',
-    whatsapp: 'bg-emerald-600 hover:bg-emerald-500 text-white font-semibold shadow-lg hover:shadow-emerald-500/30 hover:-translate-y-0.5 border border-emerald-400/30'
+    whatsapp: 'bg-emerald-600 hover:bg-emerald-500 text-white font-semibold shadow-md border border-emerald-400/30'
   };
 
   const sizes = {

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
 import { Button } from '../design-system/Button';
-import { Card } from '../design-system/Card';
 import { 
   Waves, 
   Flame, 
@@ -48,7 +47,6 @@ export default function SpaSection({ onOpenBooking }) {
   }, []);
 
   const activeTab = spaSection.tabs.find(t => t.id === activeTabId) || spaSection.tabs[0];
-  const IconComponent = tabIcons[activeTab.id] || Waves;
   const hasVideo = Boolean(activeTab.video);
   const tabImages = activeTab.images || [activeTab.image];
 
@@ -114,10 +112,10 @@ export default function SpaSection({ onOpenBooking }) {
               <button
                 key={tab.id}
                 onClick={() => setActiveTabId(tab.id)}
-                className={`flex items-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer shrink-0 whitespace-nowrap ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors duration-200 cursor-pointer shrink-0 whitespace-nowrap ${
                   isActive
-                    ? 'bg-gold-gradient text-white font-semibold shadow-lg shadow-gold-500/25 border border-gold-400/40'
-                    : 'bg-hotel-900/90 text-slate-300 border border-slate-800/90 hover:border-gold-500/40 hover:text-white'
+                    ? 'bg-hotel-900 text-gold-300 border border-gold-500/40 shadow-sm'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900/60 border border-transparent'
                 }`}
               >
                 <TabIcon className="w-3.5 h-3.5 shrink-0" />
@@ -127,9 +125,9 @@ export default function SpaSection({ onOpenBooking }) {
           })}
         </div>
 
-        {/* Active Tab Content Card */}
-        <Card variant="elevated" hover={false} className="p-4 sm:p-7 lg:p-9 border-slate-800/90 shadow-2xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-10 items-stretch">
+        {/* Active Tab Content Container */}
+        <div className="p-5 sm:p-8 lg:p-10 rounded-2xl bg-hotel-900/40 border border-slate-800/80 shadow-xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-stretch">
             
             {/* Visual Column */}
             <div className="lg:col-span-7 flex flex-col h-full">
@@ -146,8 +144,8 @@ export default function SpaSection({ onOpenBooking }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-hotel-950/80 via-transparent to-transparent" />
                 
                 {/* Play or Zoom Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gold-gradient text-white flex items-center justify-center shadow-gold-glow/60 border border-gold-300/40">
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-hotel-950/80 border border-gold-400/50 backdrop-blur-md flex items-center justify-center text-gold-400 shadow-lg">
                     {hasVideo ? (
                       <Play className="w-6 h-6 fill-white ml-0.5" />
                     ) : (
@@ -156,7 +154,7 @@ export default function SpaSection({ onOpenBooking }) {
                   </div>
                 </div>
 
-                <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 flex items-center justify-between gap-1 text-xs text-slate-200 backdrop-blur-md bg-hotel-950/80 p-2 sm:p-2.5 rounded-xl border border-white/10">
+                <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 flex items-center justify-between gap-1 text-xs text-slate-200 backdrop-blur-md bg-hotel-950/80 p-2.5 sm:p-3 rounded-xl border border-white/10">
                   <span className="font-semibold text-gold-300 text-xs sm:text-sm truncate">{activeTab.title}</span>
                   <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs text-gold-400 shrink-0 font-medium">
                     <Clock className="w-3.5 h-3.5 shrink-0" /> {spaSection.hoursBadge || '09:00 - 23:00'}
@@ -168,10 +166,9 @@ export default function SpaSection({ onOpenBooking }) {
             {/* Description & Features Column */}
             <div className="lg:col-span-5 flex flex-col justify-between h-full pt-2 lg:pt-0">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 text-xs font-semibold mb-2.5 sm:mb-3">
-                  <IconComponent className="w-3.5 h-3.5" />
-                  <span>{activeTab.subtitle}</span>
-                </div>
+                <p className="text-xs font-semibold tracking-widest text-gold-400 uppercase mb-2">
+                  {activeTab.subtitle}
+                </p>
 
                 <h3 className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-4">
                   {activeTab.title}
@@ -233,7 +230,7 @@ export default function SpaSection({ onOpenBooking }) {
             </div>
 
           </div>
-        </Card>
+        </div>
 
       </div>
 

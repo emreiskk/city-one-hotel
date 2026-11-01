@@ -1,15 +1,15 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { SectionBadge, Heading, Subtitle } from '../design-system/Typography';
+import { Heading, Subtitle } from '../design-system/Typography';
 import { Button } from '../design-system/Button';
-import { Calendar, ArrowRight, CheckCircle2, Crown } from 'lucide-react';
+import { Calendar, ArrowRight, Star } from 'lucide-react';
 
 export const HeroSection = ({ onOpenBooking }) => {
   const { content } = useLanguage();
   const { hero, hotel } = content;
 
   return (
-    <section id="hero" className="relative min-h-[90vh] lg:min-h-screen flex items-center pt-24 sm:pt-36 lg:pt-40 pb-12 sm:pb-16 overflow-hidden">
+    <section id="hero" className="relative min-h-[85vh] lg:min-h-[92vh] flex items-center pt-28 sm:pt-36 lg:pt-44 pb-16 sm:pb-20 lg:pb-24 overflow-hidden">
       
       {/* Background with Dark Glass & Gradient Overlay */}
       <div className="absolute inset-0 z-0">
@@ -26,7 +26,7 @@ export const HeroSection = ({ onOpenBooking }) => {
         {/* Vertical vignette gradient */}
         <div className="absolute inset-0 bg-hero-overlay" />
         {/* Left-to-right subtle luxury vignette to guarantee text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-hotel-950/90 via-hotel-950/50 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-hotel-950/95 via-hotel-950/60 to-transparent pointer-events-none" />
         {/* Subtle gold radiance at top */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold-500/10 via-transparent to-transparent pointer-events-none" />
       </div>
@@ -34,38 +34,31 @@ export const HeroSection = ({ onOpenBooking }) => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-3xl">
           
-          {/* Section Badge */}
-          <div className="mb-4">
-            <SectionBadge icon={Crown} variant="gold">
+          {/* Editorial Eyebrow Kicker with Discreet Rating - Clean, No Nested Boxes */}
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-3.5 sm:mb-4">
+            <span className="text-xs font-semibold tracking-[0.25em] text-gold-400 uppercase">
               {hero.badge}
-            </SectionBadge>
+            </span>
+            <span className="h-3 w-[1px] bg-slate-700 hidden sm:block" />
+            <div className="flex items-center gap-1.5 text-xs text-slate-300">
+              <Star className="w-3.5 h-3.5 fill-gold-400 text-gold-400 shrink-0" />
+              <span className="font-semibold text-white">4.1</span>
+              <span className="text-slate-400 text-[11px] hidden xs:inline">(3.2K+ Google)</span>
+            </div>
           </div>
 
           {/* Luxury Main Heading */}
-          <Heading as="h1" size="hero" className="mb-6">
+          <Heading as="h1" size="hero" className="mb-5 sm:mb-6">
             <span>{hero.titlePrimary} </span>
             <span className="text-gold-gradient block sm:inline">{hero.titleHighlight}</span>
           </Heading>
 
-          {/* Subtitle */}
-          <Subtitle size="lg" className="mb-8 text-slate-200/90 text-base sm:text-lg lg:text-xl font-light">
+          {/* Subtitle - Poetic, Direct, Uncluttered */}
+          <Subtitle size="lg" className="mb-8 sm:mb-10 text-slate-200/90 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-2xl">
             {hero.description}
           </Subtitle>
 
-          {/* Key Feature Pills */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-9 max-w-2xl">
-            {hero.featuresPills.map((pill, idx) => (
-              <div
-                key={idx}
-                className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-hotel-900/60 border border-slate-700/50 backdrop-blur-md text-xs sm:text-sm text-slate-200"
-              >
-                <CheckCircle2 className="w-4 h-4 text-gold-400 shrink-0" />
-                <span>{pill}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Action CTAs: Focused luxury direct booking & room discovery */}
+          {/* Action CTAs */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
             <Button
               variant="gold"
@@ -73,7 +66,7 @@ export const HeroSection = ({ onOpenBooking }) => {
               icon={Calendar}
               iconPosition="left"
               onClick={() => onOpenBooking()}
-              className="py-3 sm:!py-3.5 sm:!px-7 text-sm sm:text-base shadow-xl"
+              className="py-3 sm:!py-3.5 sm:!px-7 text-sm sm:text-base shadow-lg"
             >
               {hero.ctaPrimary}
             </Button>
@@ -93,22 +86,10 @@ export const HeroSection = ({ onOpenBooking }) => {
 
         </div>
 
-        {/* Floating Quick Stats Card / Bar */}
-        <div className="mt-10 sm:mt-12 lg:mt-16 pt-6 sm:pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {hero.stats.map((stat, idx) => (
-            <div key={idx} className="flex flex-col">
-              <span className="font-serif text-xl sm:text-3xl lg:text-4xl font-bold text-gold-400 tracking-tight">
-                {stat.value}
-              </span>
-              <span className="text-[11px] sm:text-sm text-slate-300 font-medium mt-1">
-                {stat.label}
-              </span>
-            </div>
-          ))}
-        </div>
-
       </div>
 
     </section>
   );
 };
+
+export default HeroSection;
